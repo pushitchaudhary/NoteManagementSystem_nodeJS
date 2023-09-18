@@ -61,12 +61,23 @@ app.get('/',(req,res)=>{
 })
 
 // home page ma jaan ko lagi
-app.get('/:id', async (req,res)=>{
-    const paraid =  req.params.id
+app.get('/:id', async (req, res) => {
+    const paraid = req.params.id;
 
-    res.render('blog')
-  
+    // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
+    // For example, fetch the user's blog posts
+    const userBlogPosts = await blog.findAll({
+        where: {
+            userId: paraid
+        }
+    });
+
+    // You can fetch other data as needed
+
+    // Then render the 'blog' view with the data
+    res.render('blog', { userBlogPosts });
 })
+
 
 
 //  -----------     POST API     -----------
