@@ -61,7 +61,7 @@ app.get('/register',(req,res)=>{
 // })
 
 // home page ma jaan ko lagi
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
     // const paraid = req.params.id;
 
     // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
