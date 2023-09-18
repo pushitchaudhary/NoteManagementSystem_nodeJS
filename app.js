@@ -75,7 +75,7 @@ app.get('/home', (req, res) => {
     // You can fetch other data as needed
 
     // Then render the 'blog' view with the data
-    res.render('blog');
+    res.render('blog.ejs');
 })
 
 
