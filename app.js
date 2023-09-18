@@ -62,7 +62,7 @@ app.get('/register',(req,res)=>{
 
 // home page ma jaan ko lagi
 app.get('/home', (req,res)=> {
-    res.render('blog.ejs');
+    res.render('blog');
 })
 
 
