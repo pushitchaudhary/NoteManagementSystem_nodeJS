@@ -86,7 +86,7 @@ app.get('/:id', async (req,res)=>{
         }else{
             // const value = blogDb.length;
             // res.render('blog.ejs',{userDb,value})
-            res.send('else rsult')
+            res.render('blog.ejs')
         }
     }else {
         res.render('error404.ejs')
