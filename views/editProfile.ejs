@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="/css/editProfile.css">
+</head>
+<body>
+    <div class="delete-button">
+            <a href="/deleteAccount/<%- DbUserId[0].id %>"><button style="font-size:20px; background-color:tomato;
+             padding:10px; border-radius:5px; color:white;">Delete Account</button></a>
+    </div>
+    <div class="container">
+        <h2>Update Profile</h2>
+        <form action="/updateProfile/<%- DbUserId[0].id %>" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="<%- DbUserId[0].name %>" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="<%- DbUserId[0].email %>" name="email" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update Profile">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

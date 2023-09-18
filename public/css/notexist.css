@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.message {
+    font-size: 4em;
+    animation: pulse 1s infinite alternate;
+}
+
+.link {
+    font-size: 1em;
+    margin-top: 20px; /* Add spacing between the message and the link */
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+        color: red;
+    }
+}
