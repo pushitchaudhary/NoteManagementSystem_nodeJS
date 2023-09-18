@@ -62,19 +62,6 @@ app.get('/register',(req,res)=>{
 
 // home page ma jaan ko lagi
 app.get('/home', (req,res)=> {
-    // const paraid = req.params.id;
-
-    // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
-    // For example, fetch the user's blog posts
-    // const userBlogPosts = await blog.findAll({
-    //     where: {
-    //         userId: paraid
-    //     }
-    // });
-
-    // You can fetch other data as needed
-
-    // Then render the 'blog' view with the data
     res.render('blog.ejs');
 })
 
@@ -132,7 +119,7 @@ app.post('/',async (req,res)=>{
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.render('/home')
+            res.redirect('/home')
         }else{
             res.redirect('/passwordWrong')
         }
