@@ -80,13 +80,13 @@ app.get('/:id', async (req,res)=>{
         })
         
         if(blogDb.length > 0){
-            res.render('blog.ejs')
+            res.render('blog')
             // const value = blogDb.length;
             // res.render('blog.ejs',{userDb,blogDb,value})
         }else{
             // const value = blogDb.length;
             // res.render('blog.ejs',{userDb,value})
-            res.render('blog.ejs')
+            res.render('blog')
         }
     }else {
         res.render('error404.ejs')
