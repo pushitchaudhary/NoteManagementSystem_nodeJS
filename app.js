@@ -103,7 +103,7 @@ app.post('/register',async (req,res)=>{
                 email:email,
                 password: await bcrypt.hash(password,12)
             })
-            res.redirect('/')
+            res.redirect('/login')
         }else{
             res.send("This email already in use")
         }
@@ -132,7 +132,7 @@ app.post('/login',async (req,res)=>{
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.render('/11')
+            res.render('/')
         }else{
             res.redirect('/passwordWrong')
         }
