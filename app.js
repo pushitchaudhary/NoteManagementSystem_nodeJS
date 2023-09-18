@@ -56,9 +56,9 @@ app.get('/register',(req,res)=>{
 
 
 // bina user id ko url diyema 
-app.get('/',(req,res)=>{
-    res.render('loginreq')
-})
+// app.get('/',(req,res)=>{
+//     res.render('loginreq')
+// })
 
 // home page ma jaan ko lagi
 app.get('/', async (req, res) => {
