@@ -65,12 +65,7 @@ app.get('/:id', async (req,res)=>{
     const paraid =  req.params.id
 
     res.render('blog')
-    if (/^\d+$/.test(paraid)) {
-        // User Database 
-        
-    }else {
-        res.render('error404.ejs')
-    }
+  
 })
 
 
@@ -126,7 +121,7 @@ app.post('/login',async (req,res)=>{
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.render(`/11`)
+            res.render('/11')
         }else{
             res.redirect('/passwordWrong')
         }
