@@ -78,15 +78,16 @@ app.get('/:id', async (req,res)=>{
                 userId:paraid
             }
         })
-        res.render('blog.ejs')
-
-        // if(blogDb.length > 0){
-        //     const value = blogDb.length;
-        //     res.render('blog.ejs',{userDb,blogDb,value})
-        // }else{
-        //     const value = blogDb.length;
-        //     res.render('blog.ejs',{userDb,value})
-        // }
+        
+        if(blogDb.length > 0){
+            res.render('blog.ejs')
+            // const value = blogDb.length;
+            // res.render('blog.ejs',{userDb,blogDb,value})
+        }else{
+            // const value = blogDb.length;
+            // res.render('blog.ejs',{userDb,value})
+            res.send('else rsult')
+        }
     }else {
         res.render('error404.ejs')
     }
