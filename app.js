@@ -43,9 +43,9 @@ app.get('/passwordWrong',(req,res)=>{
     res.render('passwordWrong')
 })
 
-app.get('/accountDeletedAlert',(req,res)=>{
-    res.render('accountDeletedAlert');
-})
+// app.get('/accountDeletedAlert',(req,res)=>{
+//     res.render('accountDeletedAlert');
+// })
 
 // Register page ma jaan ko lagi
 app.get('/register',(req,res)=>{
@@ -61,7 +61,7 @@ app.get('/register',(req,res)=>{
 // })
 
 // home page ma jaan ko lagi
-app.get('/home', (req, res) => {
+app.get('/home', (req,res)=> {
     // const paraid = req.params.id;
 
     // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
@@ -146,9 +146,9 @@ app.post('/',async (req,res)=>{
 
 
 // if user le wrong url haale ma
-app.get('*',(req,res)=>{
-    res.render('error404.ejs')
-})
+// app.get('*',(req,res)=>{
+//     res.render('error404.ejs')
+// })
 
 app.use('/',route);
 
