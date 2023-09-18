@@ -66,11 +66,11 @@ app.get('/', async (req, res) => {
 
     // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
     // For example, fetch the user's blog posts
-    const userBlogPosts = await blog.findAll({
-        where: {
-            userId: paraid
-        }
-    });
+    // const userBlogPosts = await blog.findAll({
+    //     where: {
+    //         userId: paraid
+    //     }
+    // });
 
     // You can fetch other data as needed
 
