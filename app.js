@@ -1,5 +1,6 @@
 const express = require('express');
 const {user, blog} = require('./model/index');
+const reqFilter = require('./component/middleware');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -10,6 +11,9 @@ app.use(express.static('public/'))
 // Post baat aayeko data lai parse garn 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+
+// if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
+route.use(reqFilter);
 
 // Register page ma jaan ko lagi
 app.get('/register',(req,res)=>{
@@ -56,6 +60,13 @@ app.post('/register',async (req,res)=>{
     }    
 })
 
+
+// if user le wrong url haale ma
+app.get('*',(req,res)=>{
+    res.render('error404.ejs')
+})
+
+app.use('/',route);
 
 
 app.listen(4000,()=>{
