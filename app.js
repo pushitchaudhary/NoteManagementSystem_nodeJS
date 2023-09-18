@@ -34,7 +34,7 @@ app.get('/register',(req,res)=>{
 })
 
 // login page ma jaan ko lagi
-app.get('/login',(req,res)=>{
+app.get('/',(req,res)=>{
     res.render('login')
 })
 
@@ -61,7 +61,7 @@ app.get('/register',(req,res)=>{
 // })
 
 // home page ma jaan ko lagi
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     // const paraid = req.params.id;
 
     // Assuming 'paraid' is the user's ID, retrieve data based on this ID from your database
@@ -103,7 +103,7 @@ app.post('/register',async (req,res)=>{
                 email:email,
                 password: await bcrypt.hash(password,12)
             })
-            res.redirect('/login')
+            res.redirect('/')
         }else{
             res.send("This email already in use")
         }
@@ -114,7 +114,7 @@ app.post('/register',async (req,res)=>{
 
 
 // Login garn ko lagi
-app.post('/login',async (req,res)=>{
+app.post('/',async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
 
@@ -132,7 +132,7 @@ app.post('/login',async (req,res)=>{
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.render('/')
+            res.render('/home')
         }else{
             res.redirect('/passwordWrong')
         }
