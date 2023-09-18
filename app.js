@@ -34,18 +34,23 @@ app.post('/register',async (req,res)=>{
     const cpassword = req.body.cpassword;
 
     if(password == cpassword){
+         // Db ma already email register xha ki xhain check garn ko lagi
+        const checkEmailAlreadyInDb = await user.findAll({
+            where:{
+                email:email
+            }
+        })
 
-        const hashpass = await bcrypt.hash(password,8);
-        // console.log(hashpass)
-
+        if(checkEmailAlreadyInDb.length == 0){
             await user.create({
-                name:name,
+                name: name,
                 email:email,
-                password: hashpass
+                password: await bcrypt.hash(password,12)
             })
-            console.log('d');
-            res.redirect('/')
-      
+            res.redirect('/login')
+        }else{
+            res.send("This email already in use")
+        }
     }else{
         res.send("Password and Confirm Password does not match")
     }    
