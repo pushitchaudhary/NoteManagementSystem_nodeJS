@@ -66,28 +66,8 @@ app.get('/:id', async (req,res)=>{
 
     if (/^\d+$/.test(paraid)) {
         // User Database 
-        const userDb = await user.findAll({
-            where:{
-                id:paraid
-            }
-        })
-
-        // Blog Datbase
-        const blogDb = await blog.findAll({
-            where:{
-                userId:paraid
-            }
-        })
         
-        if(blogDb.length > 0){
-            res.render('blog')
-            // const value = blogDb.length;
-            // res.render('blog.ejs',{userDb,blogDb,value})
-        }else{
-            // const value = blogDb.length;
-            // res.render('blog.ejs',{userDb,value})
-            res.render('blog')
-        }
+        res.render('blog')
     }else {
         res.render('error404.ejs')
     }
