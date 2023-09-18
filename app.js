@@ -4,6 +4,7 @@ const reqFilter = require('./component/middleware');
 const bcrypt = require('bcrypt');
 
 const app = express();
+const route = express.Router();
 
 app.set('view engine','ejs')
 
@@ -26,6 +27,36 @@ app.get('/',(req,res)=>{
 })
 
 
+// home page ma jaan ko lagi
+app.get('/:id', async (req,res)=>{
+    const paraid =  req.params.id
+
+    if (/^\d+$/.test(paraid)) {
+        // User Database 
+        const userDb = await user.findAll({
+            where:{
+                id:paraid
+            }
+        })
+
+        // Blog Datbase
+        const blogDb = await blog.findAll({
+            where:{
+                userId:paraid
+            }
+        })
+
+        if(blogDb.length > 0){
+            const value = blogDb.length;
+            res.render('blog.ejs',{userDb,blogDb,value})
+        }else{
+            const value = blogDb.length;
+            res.render('blog.ejs',{userDb,value})
+        }
+    }else {
+        res.render('error404.ejs')
+    }
+})
 
 
 //  -----------     POST API     -----------
@@ -59,6 +90,38 @@ app.post('/register',async (req,res)=>{
         res.send("Password and Confirm Password does not match")
     }    
 })
+
+
+// Login garn ko lagi
+app.post('/login',async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // user-database ma user le haaleko email register xha ki xhain check garn 
+    const checkUserEmailInDB = await user.findAll({
+        where:{
+            email:email
+        }
+    })
+
+    if(checkUserEmailInDB.length == 0){
+        res.render('notexist')
+    }else if(checkUserEmailInDB.length == 1){
+        const obj = checkUserEmailInDB[0].id;
+        const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
+        if(confirmPassword){
+            // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
+            res.render(`/${obj}`)
+        }else{
+            res.redirect('/passwordWrong')
+        }
+    }else{
+        res.send("Something went wrong")
+    }
+})
+
+
+
 
 
 // if user le wrong url haale ma
