@@ -103,7 +103,7 @@ app.post('/register',async (req,res)=>{
                 email:email,
                 password: await bcrypt.hash(password,12)
             })
-            res.redirect('/login')
+            res.redirect('/')
         }else{
             res.send("This email already in use")
         }
