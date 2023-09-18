@@ -16,16 +16,49 @@ app.use(express.urlencoded({extended:true}))
 // if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
 route.use(reqFilter);
 
+//  -----------     GET API     -----------
+
+// page not found ko lagi
+app.get('/error404',(req,res)=>{
+    res.render('error404.ejs')
+})
+
+// if account register xhain vane
+app.get('/notexist',(req,res)=>{
+    res.render('notexist')
+})
+
 // Register page ma jaan ko lagi
 app.get('/register',(req,res)=>{
     res.render('register.ejs')
 })
 
 // login page ma jaan ko lagi
-app.get('/',(req,res)=>{
-    res.render('login.ejs')
+app.get('/login',(req,res)=>{
+    res.render('login')
 })
 
+// if password wrong xha vane
+app.get('/passwordWrong',(req,res)=>{
+    res.render('passwordWrong')
+})
+
+app.get('/accountDeletedAlert',(req,res)=>{
+    res.render('accountDeletedAlert');
+})
+
+// Register page ma jaan ko lagi
+app.get('/register',(req,res)=>{
+    res.render('register.ejs')
+})
+
+
+
+
+// bina user id ko url diyema 
+app.get('/',(req,res)=>{
+    res.render('loginreq')
+})
 
 // home page ma jaan ko lagi
 app.get('/:id', async (req,res)=>{
@@ -82,7 +115,7 @@ app.post('/register',async (req,res)=>{
                 email:email,
                 password: await bcrypt.hash(password,12)
             })
-            res.redirect('/')
+            res.redirect('/login')
         }else{
             res.send("This email already in use")
         }
