@@ -8,57 +8,10 @@
 </head>
 <body>
     <header>
-        <h3>Welcome, <span id="user-name" style="color: yellow ;"><%- userDb[0].name %></span></h3>
+        <h3>Welcome, <span id="user-name" style="color: yellow ;"></span></h3>
         <h1>Note Management System</h1>
         
 
-        <% if( value == 0){ %>
-
-            <nav>
-                <div class="left-nav">
-                    <a href="/createBlog/<%- userDb[0].id %>">Create Blog</a>
-                </div>
-                <div class="left-nav">
-                    <a href="/editProfile/<%- userDb[0].id %>">Edit Profile</a>
-                </div>
-                <ul>
-                    <li><a href="/login"> Logout</a></li>
-                </ul>
-            </nav>
-          
-        <% } else{ %>
-
-        <nav>
-            <div class="left-nav">
-                <a href="/createBlog/<%- blogDb[0].userId %>">Create Note</a>
-            </div>
-            <ul>
-                <li><a href="/editProfile/<%- blogDb[0].userId %>">Edit Profile</a></li>
-            </ul>
-            <ul>
-                <li><a href="/login %>"> Logout</a></li>
-            </ul>
-        </nav>
-        
-    </header>
-    <div class="container">
-        <div class="blog-list">
-            <% blogDb.forEach((item)=>{ %>
-                <div class="blog-post">
-                    <h1 class="blog-title"> <%- item.title %> </h1>
-                    <h3> <%- item.subtitle %> </h3>
-                    <p class="blog-content">
-                      <%  if(item.description.length < 50){ %>
-                            <%- item.description %>
-                       <% }else{ %>
-                            <%- item.description.slice(0,100) %>... 
-                        <% } %>
-                    </p>
-                    <a href="/singleBlog/<%- item.id %>">more...</a>
-                </div>
-            <%  }) %>
-        </div>
-    </div>
-    <% } %>
+      
 </body>
 </html>
