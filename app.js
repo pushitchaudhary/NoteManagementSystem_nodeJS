@@ -1,8 +1,10 @@
 const express = require('express');
 const {user, blog} = require('./model/index');
+const reqFilter = require('./component/middleware');
 const bcrypt = require('bcrypt');
 
 const app = express();
+const route = express.Router();
 
 app.set('view engine','ejs')
 
@@ -10,6 +12,7 @@ app.use(express.static('public/'))
 // Post baat aayeko data lai parse garn 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+route.use(reqFilter);
 
 // if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
 
@@ -61,7 +64,7 @@ app.get('/register',(req,res)=>{
 
 
 // home page ma jaan ko lagi
-app.get('/home/:id', async (req, res) => {
+app.get('/home/:id', route, async(req, res) => {
     const paraid = req.params.id;
     console.log(paraid);
 
@@ -165,9 +168,9 @@ app.post('/',async (req,res)=>{
 
 
 // if user le wrong url haale ma
-// app.get('*',(req,res)=>{
-//     res.render('error404.ejs')
-// })
+app.get('*',(req,res)=>{
+    res.render('error404.ejs')
+})
 
 
 
