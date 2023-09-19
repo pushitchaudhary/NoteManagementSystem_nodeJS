@@ -39,6 +39,10 @@ app.get('/',(req,res)=>{
     res.render('login')
 })
 
+app.get('/login',(req,res)=>{
+    res.render('login')
+})
+
 // if password wrong xha vane
 app.get('/passwordWrong',(req,res)=>{
     res.render('passwordWrong')
@@ -168,9 +172,9 @@ app.post('/',async (req,res)=>{
 
 
 // if user le wrong url haale ma
-app.get('*',(req,res)=>{
-    res.render('error404.ejs')
-})
+// app.get('*',(req,res)=>{
+//     res.render('error404.ejs')
+// })
 
 
 
