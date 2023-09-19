@@ -11,14 +11,9 @@ app.use(express.static('public/'))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
+
 // if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
-const reqFilter = (req, res, next) => {
-    if (!req.params.id) {
-        res.redirect('/pageNotFound');
-    } else {
-        next();
-    }
-};
+
 
 //  -----------     GET API     -----------
 
@@ -64,19 +59,18 @@ app.get('/register',(req,res)=>{
 
 
 // bina user id ko url diyema 
-// app.get('/',(req,res)=>{
-//     res.render('loginreq')
-// })
+app.get('/home',(req,res)=>{
+    res.render('loginreq')
+})
 
 
 
 // home page ma jaan ko lagi
-app.get('/home/:id',reqFilter, async(req, res) => {
+app.get('/home/:id', async(req, res) => {
     const paraid = req.params.id;
     console.log(paraid);
 
     if (/^\d+$/.test(paraid)) {
-        try {
             // User Database
             const userDb = await user.findAll({
                 where: {
@@ -93,17 +87,12 @@ app.get('/home/:id',reqFilter, async(req, res) => {
 
             if (blogDb.length > 0) {
                 const value = blogDb.length;
-                // res.render('blog', { userDb, blogDb, value });
-                res.render('blog');
+                res.render('blog', { userDb, blogDb, value });
             } else {
                 const value = blogDb.length;
-                // res.render('blog.ejs', { userDb, value });
-                res.render('blog');
+                res.render('blog.ejs', { userDb, value });
             }
-        } catch (error) {
-            console.error(error);
-            res.render('error500.ejs'); // Handle the error gracefully, e.g., by rendering an error page
-        }
+       
     } else {
         res.render('error404.ejs');
     }
