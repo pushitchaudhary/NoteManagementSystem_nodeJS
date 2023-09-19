@@ -1,10 +1,8 @@
 const express = require('express');
 const {user, blog} = require('./model/index');
-const reqFilter = require('./component/middleware');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const route = express.Router();
 
 app.set('view engine','ejs')
 
@@ -12,10 +10,15 @@ app.use(express.static('public/'))
 // Post baat aayeko data lai parse garn 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
-route.use(reqFilter);
 
 // if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
-
+const reqFilter = (req, res, next) => {
+    if (!req.params.id) {
+        res.redirect('/pageNotFound');
+    } else {
+        next();
+    }
+};
 
 //  -----------     GET API     -----------
 
@@ -68,7 +71,7 @@ app.get('/register',(req,res)=>{
 
 
 // home page ma jaan ko lagi
-app.get('/home/:id', route, async(req, res) => {
+app.get('/home/:id',reqFilter, async(req, res) => {
     const paraid = req.params.id;
     console.log(paraid);
 
@@ -90,10 +93,12 @@ app.get('/home/:id', route, async(req, res) => {
 
             if (blogDb.length > 0) {
                 const value = blogDb.length;
-                res.render('blog.ejs', { userDb, blogDb, value });
+                // res.render('blog', { userDb, blogDb, value });
+                res.render('blog');
             } else {
                 const value = blogDb.length;
-                res.render('blog.ejs', { userDb, value });
+                // res.render('blog.ejs', { userDb, value });
+                res.render('blog');
             }
         } catch (error) {
             console.error(error);
