@@ -58,10 +58,7 @@ app.get('/register',(req,res)=>{
 //     res.render('loginreq')
 // })
 
-// home page ma jaan ko lagi
-// app.get('/home', (req,res)=> {
-//     res.render('blog');
-// })
+
 
 // home page ma jaan ko lagi
 app.get('/home/:id', async (req, res) => {
