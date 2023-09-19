@@ -59,46 +59,46 @@ app.get('/register',(req,res)=>{
 // })
 
 // home page ma jaan ko lagi
-app.get('/home', (req,res)=> {
-    res.render('blog');
-})
+// app.get('/home', (req,res)=> {
+//     res.render('blog');
+// })
 
 // home page ma jaan ko lagi
-// app.get('/home/:id', async (req, res) => {
-//     const paraid = req.params.id;
-//     console.log(paraid);
+app.get('/home/:id', async (req, res) => {
+    const paraid = req.params.id;
+    console.log(paraid);
 
-//     if (/^\d+$/.test(paraid)) {
-//         try {
-//             // User Database
-//             const userDb = await user.findAll({
-//                 where: {
-//                     id: paraid
-//                 }
-//             });
+    if (/^\d+$/.test(paraid)) {
+        try {
+            // User Database
+            const userDb = await user.findAll({
+                where: {
+                    id: paraid
+                }
+            });
 
-//             // Blog Datbase
-//             const blogDb = await blog.findAll({
-//                 where: {
-//                     userId: paraid
-//                 }
-//             });
+            // Blog Datbase
+            const blogDb = await blog.findAll({
+                where: {
+                    userId: paraid
+                }
+            });
 
-//             if (blogDb.length > 0) {
-//                 const value = blogDb.length;
-//                 res.render('blog.ejs', { userDb, blogDb, value });
-//             } else {
-//                 const value = blogDb.length;
-//                 res.render('blog.ejs', { userDb, value });
-//             }
-//         } catch (error) {
-//             console.error(error);
-//             res.render('error500.ejs'); // Handle the error gracefully, e.g., by rendering an error page
-//         }
-//     } else {
-//         res.render('error404.ejs');
-//     }
-// });
+            if (blogDb.length > 0) {
+                const value = blogDb.length;
+                res.render('blog.ejs', { userDb, blogDb, value });
+            } else {
+                const value = blogDb.length;
+                res.render('blog.ejs', { userDb, value });
+            }
+        } catch (error) {
+            console.error(error);
+            res.render('error500.ejs'); // Handle the error gracefully, e.g., by rendering an error page
+        }
+    } else {
+        res.render('error404.ejs');
+    }
+});
 
 
 
