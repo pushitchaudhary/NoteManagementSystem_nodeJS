@@ -55,6 +55,53 @@ app.get('/register',(req,res)=>{
     res.render('register.ejs')
 })
 
+// Blog Edit/Update page show garn ko lagi
+app.get('/updateBlog/:id', async (req,res)=>{
+    const postId = req.params.id;
+    // url ma aako value valid interger xhain ki xhain check garn
+    if (/^\d+$/.test(postId)){
+        // to check if user le patha ko post value DB ma xha ki xhain if xhain vane error 404 dekhaune
+        const blogPostId = await blog.findAll({
+            where:{
+                id:postId
+            }
+        })
+        // url ma aayeko value database sng match garyo bhane updateblog page ma pathe dine
+        if(blogPostId.length == 1){
+            res.render('updateBlog',{blogPostId})
+        }else{
+            res.render('error404.ejs')
+        }
+    }else{
+        res.render('error404.ejs')
+    }
+})
+
+
+
+// Edit profile page kholna ko lagi
+app.get('/editProfile/:userId', async (req,res)=>{
+    const userId = req.params.userId;
+
+    // params baat ko value valid integer xha ki xhain check garn
+    if (/^\d+$/.test(userId)){
+        const DbUserId = await user.findAll({
+            where:{
+                id:userId
+            }
+        })
+
+        if(DbUserId.length == 1){
+            res.render('editProfile',{DbUserId})
+        }else{
+            res.render('error404.ejs')
+        }
+    }else{
+        res.render('error404.ejs')
+    }
+})
+
+
 
 // create blog page ma jana ko lagi
 app.get('/createBlog/:id', async (req,res)=>{
@@ -184,6 +231,26 @@ app.post('/login',async (req,res)=>{
 })
 
 
+// Blog Create garn ko lagi 
+app.post('/createBlog/:id', async (req,res)=>{
+    const title = req.body.title;
+    const subtitle = req.body.subtitle;
+    const description = req.body.description;
+    const userId = req.params.id;
+
+    if (/^\d+$/.test(userId)) {
+        await blog.create({
+            title:title,
+            subtitle:subtitle,
+            description:description,
+            userId:userId
+        })
+        res.redirect(`/home/${userId}`)
+    }else{
+        res.render('error404.ejs')
+    }
+
+})
 
 
 
