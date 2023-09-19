@@ -61,8 +61,42 @@ app.get('/register',(req,res)=>{
 // })
 
 // home page ma jaan ko lagi
-app.get('/home', (req,res)=> {
-    res.render('blog');
+// app.get('/home', (req,res)=> {
+//     res.render('blog');
+// })
+
+// home page ma jaan ko lagi
+app.get('/home/:id', async (req,res)=>{
+    const paraid =  req.params.id
+    console.log(paraid)
+
+    if (/^\d+$/.test(paraid)) {
+        // User Database 
+        const userDb = await user.findAll({
+            where:{
+                id:paraid
+            }
+        })
+
+        // Blog Datbase
+        const blogDb = await blog.findAll({
+            where:{
+                userId:paraid
+            }
+        })
+
+        if(blogDb.length > 0){
+            const value = blogDb.length;
+            res.render('blog.ejs',{userDb,blogDb,value})
+        }else{
+            const value = blogDb.length;
+            res.render('blog.ejs',{userDb,value})
+        }
+    }else {
+        res.render('error404.ejs')
+    }
+
+    
 })
 
 
@@ -119,7 +153,7 @@ app.post('/',async (req,res)=>{
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.redirect('/home')
+            res.redirect(`/home/${obj}`)
         }else{
             res.redirect('/passwordWrong')
         }
