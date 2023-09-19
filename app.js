@@ -1,10 +1,8 @@
 const express = require('express');
 const {user, blog} = require('./model/index');
-const reqFilter = require('./component/middleware');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const route = express.Router();
 
 app.set('view engine','ejs')
 
@@ -14,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
 // if url link ma valid User Id xhain vane Page Not Found dekhauna lai 
-route.use(reqFilter);
+
 
 //  -----------     GET API     -----------
 
@@ -174,7 +172,6 @@ app.post('/',async (req,res)=>{
 //     res.render('error404.ejs')
 // })
 
-app.use('/',route);
 
 
 app.listen(4000,()=>{
