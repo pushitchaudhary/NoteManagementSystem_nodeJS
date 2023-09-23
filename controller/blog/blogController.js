@@ -149,7 +149,7 @@ exports.PostEditBlog = async (req,res)=>{
     }  
 }
 
-// blog delete hern ko lagi ko lagi
+// deleteAccount page ma jana ko lagi
 exports.RenderDeleteBlog =  async (req,res)=>{
     const id = req.params.id;
     // params baat ko value valid integer xha ki xhain check garn
@@ -164,7 +164,7 @@ exports.RenderDeleteBlog =  async (req,res)=>{
         if(userId.length == 1){
             res.render('deleteAccount',{userId})
         }else{
-            res.render('error404.ejs')
+            res.render('error404.ejs')f
         }
     }else{
         res.render('error404.ejs')
