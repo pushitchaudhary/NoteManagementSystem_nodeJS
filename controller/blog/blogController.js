@@ -164,7 +164,7 @@ exports.RenderDeleteBlog =  async (req,res)=>{
         if(userId.length == 1){
             res.render('deleteAccount',{userId})
         }else{
-            res.render('error404.ejs')f
+            res.render('error404.ejs')
         }
     }else{
         res.render('error404.ejs')
