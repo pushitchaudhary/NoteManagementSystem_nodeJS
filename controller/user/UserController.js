@@ -20,7 +20,6 @@ exports.RenderAccountDelete = (req,res)=>{
     res.render('accountDeletedAlert');
 }
 
-
 // Register page ma jaan ko lagi
 exports.RenderRegisterPage = (req,res)=>{
     res.render('register.ejs')
