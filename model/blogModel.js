@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
         allowNull:false
-      },
-      userId: {
-        type: DataTypes.STRING,
-        allowNull:false
       }
     });
     return Blog;

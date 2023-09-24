@@ -5,7 +5,6 @@ const app = express();
 const UserRoute = require('./routes/userRoute')
 const BlogRoute = require('./routes/blogRoute');
 const ExtraRoute = require('./routes/extraRouter')
-
 // ejs file dekhauna ko lagi
 app.set('view engine','ejs')
 
