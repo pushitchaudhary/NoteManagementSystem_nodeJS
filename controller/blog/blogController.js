@@ -2,8 +2,11 @@ const {blog, user} = require('../../model/index');
 
 // bina user id ko url diyema 
 exports.RederHomeWithoutID = (req,res)=>{
-    res.render('loginreq')
+    // res.render('loginreq')
+    res.render('blog.ejs')
 }
+
+
 
 
 exports.renderHomePage = async(req, res) => {
