@@ -1,7 +1,7 @@
 const {user,blog} =  require('../../model/index');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-require('dotenv')
+require('dotenv').config();
 
 // login page ma jaan ko lagi
 exports.RenderLoginPage1 = (req,res)=>{
@@ -75,9 +75,14 @@ exports.PostLogin = async (req,res)=>{
         const obj = checkUserEmailInDB[0].id;
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
-            console.log(process.env.KEY)
+
+            const token =  jwt.sign({id:checkUserEmailInDB[0].id},process.env.SECRETKEY,{
+                expiresIn:'30d'
+            })
+            res.cookie('token',token);
+
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
-            res.redirect(`/home/${obj}`)
+            res.redirect('/home')
         }else{
             res.redirect('/passwordWrong')
         }

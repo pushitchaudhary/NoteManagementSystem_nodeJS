@@ -1,4 +1,4 @@
-const {blog, user} = require('../../model/index');
+const {user, blog} = require('../../model/index');
 
 // bina user id ko url diyema 
 exports.RederHomeWithoutID = (req,res)=>{
@@ -7,59 +7,28 @@ exports.RederHomeWithoutID = (req,res)=>{
 }
 
 
-
-
 exports.renderHomePage = async(req, res) => {
-    const paraid = req.params.id;
-    console.log(paraid);
+    const data = req.user[0].id;
 
-    if (/^\d+$/.test(paraid)) {
-            // User Database
-            const userDb = await user.findAll({
-                where: {
-                    id: paraid
-                }
-            });
+    const UserData = await user.findAll({
+        where:{
+            id:data
+        }
+    })
+  
 
-            // Blog Datbase
-            const blogDb = await blog.findAll({
-                where: {
-                    userId: paraid
-                }
-            });
+    const Userblogs = await blog.findAll({
+        include:{
+            model: user
+        }
+    })
 
-            if (blogDb.length > 0) {
-                const value = blogDb.length;
-                res.render('blog', { userDb, blogDb, value });
-            } else {
-                const value = blogDb.length;
-                res.render('blog.ejs', { userDb, value });
-            }
-       
-    } else {
-        res.render('error404.ejs');
-    }
+    res.render('blog.ejs',{Userblogs,UserData})
 }
 
 // create Blog
 exports.RenderCreateBlog = async (req,res)=>{
-    const paraId = req.params.id;
-    // params baat ko value valid integer xha ki xhain check garn
-    if (/^\d+$/.test(paraId)) {
-        const userID = await user.findAll({
-            where:{
-                id:paraId
-            }
-        })
-
-        res.render('createBlog', {paraId});
-        if(userID.length > 0){
-        }else{
-            res.render('error404.ejs')
-        }
-    }else{
-        res.render('error404.ejs')
-    }
+    res.render('createBlog.ejs')
 }
 
 // create blog post
@@ -67,7 +36,9 @@ exports.PostCreateBlog = async (req,res)=>{
     const title = req.body.title;
     const subtitle = req.body.subtitle;
     const description = req.body.description;
-    const userId = req.params.id;
+    const userId = req.user[0].id;
+    
+    console.log(userId);
 
     if (/^\d+$/.test(userId)) {
         await blog.create({
@@ -76,7 +47,7 @@ exports.PostCreateBlog = async (req,res)=>{
             description:description,
             userId:userId
         })
-        res.redirect(`/home/${userId}`)
+        res.redirect('/home')
     }else{
         res.render('error404.ejs')
     }

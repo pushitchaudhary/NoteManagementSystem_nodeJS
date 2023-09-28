@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser')
 
 
 const app = express();
@@ -11,8 +12,8 @@ app.set('view engine','ejs')
 
 // folder access dina ko lagi
 app.use(express.static('public/'))
-
 // Post baat aayeko data lai parse garn 
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 

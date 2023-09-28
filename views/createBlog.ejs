@@ -13,11 +13,11 @@
         <h1>Create a Post</h1>
     </header>
     <nav>
-        <a href="/home/<%- paraId %>">Show Blogs</a>
+        <a href="/home">Show Blogs</a>
     </nav>
 
     <div class="container">
-        <form action="/createBlog/<%- paraId %>" method="POST">
+        <form action="/createBlog" method="POST">
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" required>
