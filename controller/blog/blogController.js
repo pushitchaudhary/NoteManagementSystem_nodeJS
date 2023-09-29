@@ -33,6 +33,9 @@ exports.RenderCreateBlog = async (req,res)=>{
 
 // create blog post
 exports.PostCreateBlog = async (req,res)=>{
+
+
+
     const title = req.body.title;
     const subtitle = req.body.subtitle;
     const description = req.body.description;
@@ -45,7 +48,7 @@ exports.PostCreateBlog = async (req,res)=>{
             title:title,
             subtitle:subtitle,
             description:description,
-            userId:userId
+            userId:userId,
         })
         res.redirect('/home')
     }else{
