@@ -17,7 +17,7 @@
                 <a href="/createBlog">Create Blog</a>
             </div>
             <div class="left-nav">
-                <a href="">Edit Profile</a>
+                <a href="/editProfile/<%- UserData[0].id %>">Edit Profile</a>
             </div>
             <ul>
                 <li><a href="/login"> Logout</a></li>
@@ -38,7 +38,7 @@
                             <% } %>
                         </p>
                         <b><p>Author: <%- item.user.name %>  </p></b> 
-                        <a href="">more...</a>
+                        <a href="/singleBlog/<%- item.id %>">more...</a>
                     </div>
                 <%  }) %>
             </div>

@@ -208,7 +208,7 @@ exports.RenderBlogDelete =  async (req,res)=>{
                 id:postNum
             }
         })
-        res.redirect(`/home/${userIdNumber}`)
+        res.redirect('/home/')
     }else{
         res.render('error404.ejs')
     }
