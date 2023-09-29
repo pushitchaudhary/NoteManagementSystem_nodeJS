@@ -34,7 +34,8 @@ exports.RenderCreateBlog = async (req,res)=>{
 // create blog post
 exports.PostCreateBlog = async (req,res)=>{
 
-
+    const image = req.file.filename;
+    console.log(req.file);
 
     const title = req.body.title;
     const subtitle = req.body.subtitle;
@@ -49,6 +50,7 @@ exports.PostCreateBlog = async (req,res)=>{
             subtitle:subtitle,
             description:description,
             userId:userId,
+            image:process.env.BLOGIMAGEPATH+image
         })
         res.redirect('/home')
     }else{
