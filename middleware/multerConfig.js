@@ -7,7 +7,6 @@ var storage = multer.diskStorage({
     const supportedImageFormat = ['image/jpeg','image/jpg','image/png']
     // image type verfiy garn ko lagi
     const fileSize = file.size;
-    console.log("file size is", fileSize)
     if(!supportedImageFormat.includes(file.mimetype)){
         cb(new Error("Image Type not supported"))
         return

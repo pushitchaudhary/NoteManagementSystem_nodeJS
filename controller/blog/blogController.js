@@ -37,24 +37,29 @@ exports.PostCreateBlog = async (req,res)=>{
     const image = req.file.filename;
     console.log(req.file);
 
+    const imageSize = req.file.size;
+    console.log('image size is ',imageSize)
+
     const title = req.body.title;
     const subtitle = req.body.subtitle;
     const description = req.body.description;
     const userId = req.user[0].id;
     
-    console.log(userId);
-
-    if (/^\d+$/.test(userId)) {
-        await blog.create({
-            title:title,
-            subtitle:subtitle,
-            description:description,
-            userId:userId,
-            image:process.env.BLOGIMAGEPATH+image
-        })
-        res.redirect('/home')
+    if(imageSize < 100000){
+        if (/^\d+$/.test(userId)) {
+            await blog.create({
+                title:title,
+                subtitle:subtitle,
+                description:description,
+                userId:userId,
+                image:process.env.BLOGIMAGEPATH+image
+            })
+            res.redirect('/home')
+        }else{
+            res.render('error404.ejs')
+        }
     }else{
-        res.render('error404.ejs')
+        res.send("Image size is too much")
     }
 
 }
