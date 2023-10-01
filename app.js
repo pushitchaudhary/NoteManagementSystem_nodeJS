@@ -12,7 +12,7 @@ app.set('view engine','ejs')
 
 // folder access dina ko lagi
 app.use(express.static('public/'))
-// image folder access dina ko lagi
+// image-folder access dina ko lagi
 app.use(express.static('uploads/'))
 // Post baat aayeko data lai parse garn 
 app.use(cookieParser())
