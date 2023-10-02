@@ -22,8 +22,10 @@
 <p class="blog-meta">Posted by <b style="color: black;"><%- userName[0].name %></b> on <%= updatedAt.toLocaleDateString('en-US', {day: '2-digit', month: 'long', year: 'numeric' }) %></p>
  <br>
             <h2  style="display:inline-block ;"> <%- chekUserData[0].title %></h2> 
-            <button style="float:right; margin-left: 10px;"><p style="font-size: 15px ;"><a href="/updateBlog/<%- chekUserData[0].id %>">Edit</a></p></button>
-            <button style="float:right ;"><p style="font-size: 15px ;"><a href="/deleteBlog/<%- chekUserData[0].id %>">Delete</a></p></button>
+           <% if(UserMatched == true){ %>
+                <button style="float:right; margin-left: 10px;"><p style="font-size: 15px ;"><a href="/updateBlog/<%- chekUserData[0].id %>">Edit</a></p></button>
+                <button style="float:right ;"><p style="font-size: 15px ;"><a href="/deleteBlog/<%- chekUserData[0].id %>">Delete</a></p></button>
+           <% }%>
             <h4><%- chekUserData[0].subtitle %></h4>
             <img src="<%- chekUserData[0].image %>" height="100" width="100" alt="" srcset="">
             <p class="blog-content">

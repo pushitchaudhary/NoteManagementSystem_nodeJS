@@ -194,7 +194,6 @@ exports.PostUpdateProfile =  async (req,res)=>{
     }
 }
 
-
 exports.logout = (req,res)=>{
     res.clearCookie('token')
     res.redirect('/login');

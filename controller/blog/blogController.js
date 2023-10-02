@@ -1,4 +1,6 @@
 const {user, blog} = require('../../model/index');
+const jwt = require('jsonwebtoken');
+const {promisify} = require('util')
 
 // bina user id ko url diyema 
 exports.RederHomeWithoutID = (req,res)=>{
@@ -161,6 +163,17 @@ exports.RenderDeleteBlog =  async (req,res)=>{
 exports.RenderSingleBlog = async (req,res)=>{
     const postId = req.params.postId;
 
+    const token = req.cookies.token
+
+    if(!token){
+        return res.send('You must be logged in')
+    }
+    const VerifyUserIdToken  = await promisify(jwt.verify)(token,process.env.SECRETKEY);
+
+    const UserId = VerifyUserIdToken.id;
+
+
+
     // params baat ko value valid integer xha ki xhain check garn
     if (/^\d+$/.test(postId)){
         
@@ -170,6 +183,10 @@ exports.RenderSingleBlog = async (req,res)=>{
                 id:postId
             }
         })
+
+        const postUserId = chekUserData[0].userId
+
+        
 
         // if user le url ma database ma na vako post id haayo bhane error 404 dekhaune
         if(chekUserData != ''){
@@ -184,7 +201,14 @@ exports.RenderSingleBlog = async (req,res)=>{
             if(userName[0].id == chekUserData[0].userId){
                 //  if user le haale ko user id ra post id sahi xha vane matra  single blog ma pathaune
                 if(chekUserData.length == 1){
-                    res.render('singleBlog',{userName,chekUserData})
+
+                    if(UserId == postUserId){
+                        UserMatched = true;
+                        res.render('singleBlog',{userName,chekUserData,UserMatched})
+                    }else{
+                        UserMatched = false;
+                        res.render('singleBlog',{userName,chekUserData,UserMatched})
+                    }
                 }else{
                     res.render('error404.ejs')
                 }
@@ -194,6 +218,7 @@ exports.RenderSingleBlog = async (req,res)=>{
         }else{
             res.render('error404.ejs')
         }
+    
     }else{
         res.render('error404.ejs')
     }
