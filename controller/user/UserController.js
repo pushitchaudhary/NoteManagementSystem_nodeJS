@@ -194,6 +194,7 @@ exports.PostUpdateProfile =  async (req,res)=>{
     }
 }
 
+// cookies ko session clear garn
 exports.logout = (req,res)=>{
     res.clearCookie('token')
     res.redirect('/login');
