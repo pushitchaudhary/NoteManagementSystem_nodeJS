@@ -94,9 +94,21 @@ exports.PostEditBlog = async (req,res)=>{
     const upTitle = req.body.uptitle;
     const upSubtitle = req.body.upsubtitle;
     const upDescrition = req.body.updescription
-    const updateImage = req.file;
 
-    console.log(updateImage)
+    const database_Data = await blog.findAll({
+        where:{
+            id:postId
+        }
+    })
+
+    let ImageData;
+
+    if(req.file){
+        ImageData = process.env.BLOGIMAGEPATH+req.file.filename
+    }else{
+        ImageData = database_Data[0].image;
+    }
+    // yeha baat continue garne -----------------------
 
     // url ma valid interger value aako xha ki xhain garn
     if (/^\d+$/.test(postId)) {
