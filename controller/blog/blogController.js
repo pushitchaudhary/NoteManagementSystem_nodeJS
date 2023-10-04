@@ -94,6 +94,9 @@ exports.PostEditBlog = async (req,res)=>{
     const upTitle = req.body.uptitle;
     const upSubtitle = req.body.upsubtitle;
     const upDescrition = req.body.updescription
+    const updateImage = req.file;
+
+    console.log(updateImage)
 
     // url ma valid interger value aako xha ki xhain garn
     if (/^\d+$/.test(postId)) {
