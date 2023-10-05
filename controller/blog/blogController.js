@@ -107,18 +107,25 @@ exports.PostEditBlog = async (req,res)=>{
     if(req.file){
         ImageData = process.env.BLOGIMAGEPATH+req.file.filename
         const databaseImage = database_Data[0].image;
-ç
+
         const urlCount = process.env.urlCount.length;
-        const newImageName = databaseImage.slice(urlCount)
-        console.log("new image is ",newImageName)
+        const oldImageName = databaseImage.slice(urlCount)
+        console.log("old image is ",oldImageName)
 
-
-
+        await fs.unlink(`uploads/${oldImageName}`,(err)=>{
+            if(err){
+                return res.send('error happend - photo delete')
+            }else{
+                console.log('Photo deleted');
+            }
+        })
 
 
     }else{
         ImageData = database_Data[0].image;
     }
+
+    console.log('new image is ',ImageData)
 
     // file unlink
     // fs.unlink('uploads/test.txt',(error)=>{
