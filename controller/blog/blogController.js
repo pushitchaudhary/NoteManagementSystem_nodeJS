@@ -1,6 +1,7 @@
 const {user, blog} = require('../../model/index');
 const jwt = require('jsonwebtoken');
 const {promisify} = require('util')
+const fs = require('fs')
 
 // bina user id ko url diyema 
 exports.RederHomeWithoutID = (req,res)=>{
@@ -108,6 +109,16 @@ exports.PostEditBlog = async (req,res)=>{
     }else{
         ImageData = database_Data[0].image;
     }
+
+    // file unlink
+    fs.unlink('uploads/test.txt',(error)=>{
+        if(error){
+            console.log('error happended')
+        }else{
+            console.log('successfully deleted')
+        }
+    })
+
     // yeha baat continue garne -----------------------
 
     // url ma valid interger value aako xha ki xhain garn
@@ -132,7 +143,8 @@ exports.PostEditBlog = async (req,res)=>{
                 const UpdateData = await blog.update({
                     title:upTitle,
                     subtitle:upSubtitle,
-                    description:upDescrition
+                    description:upDescrition,
+                    image:ImageData
                     },{
                         where:{
                             id:postId
