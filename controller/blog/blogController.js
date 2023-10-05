@@ -106,18 +106,28 @@ exports.PostEditBlog = async (req,res)=>{
 
     if(req.file){
         ImageData = process.env.BLOGIMAGEPATH+req.file.filename
+        const databaseImage = database_Data[0].image;
+ç
+        const urlCount = process.env.urlCount.length;
+        const newImageName = databaseImage.slice(urlCount)
+        console.log("new image is ",newImageName)
+
+
+
+
+
     }else{
         ImageData = database_Data[0].image;
     }
 
     // file unlink
-    fs.unlink('uploads/test.txt',(error)=>{
-        if(error){
-            console.log('error happended')
-        }else{
-            console.log('successfully deleted')
-        }
-    })
+    // fs.unlink('uploads/test.txt',(error)=>{
+    //     if(error){
+    //         console.log('error happended')
+    //     }else{
+    //         console.log('successfully deleted')
+    //     }
+    // })
 
     // yeha baat continue garne -----------------------
 
