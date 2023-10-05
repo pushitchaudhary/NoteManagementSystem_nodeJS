@@ -107,11 +107,8 @@ exports.PostEditBlog = async (req,res)=>{
     if(req.file){
         ImageData = process.env.BLOGIMAGEPATH+req.file.filename
         const databaseImage = database_Data[0].image;
-
-        const urlCount = process.env.urlCount.length;
+        const urlCount = process.env.BLOGIMAGEPATH.length;
         const oldImageName = databaseImage.slice(urlCount)
-        console.log("old image is ",oldImageName)
-
         await fs.unlink(`uploads/${oldImageName}`,(err)=>{
             if(err){
                 return res.send('error happend - photo delete')
@@ -119,24 +116,9 @@ exports.PostEditBlog = async (req,res)=>{
                 console.log('Photo deleted');
             }
         })
-
-
     }else{
         ImageData = database_Data[0].image;
     }
-
-    console.log('new image is ',ImageData)
-
-    // file unlink
-    // fs.unlink('uploads/test.txt',(error)=>{
-    //     if(error){
-    //         console.log('error happended')
-    //     }else{
-    //         console.log('successfully deleted')
-    //     }
-    // })
-
-    // yeha baat continue garne -----------------------
 
     // url ma valid interger value aako xha ki xhain garn
     if (/^\d+$/.test(postId)) {
