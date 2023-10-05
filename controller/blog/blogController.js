@@ -37,11 +37,13 @@ exports.RenderCreateBlog = async (req,res)=>{
 // create blog post
 exports.PostCreateBlog = async (req,res)=>{
 
+    if(!req.file){
+        return res.send('Image required')
+    }
+
     const image = req.file.filename;
-    console.log(req.file);
 
     const imageSize = req.file.size;
-    console.log('image size is ',imageSize)
 
     const title = req.body.title;
     const subtitle = req.body.subtitle;
