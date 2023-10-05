@@ -199,3 +199,8 @@ exports.logout = (req,res)=>{
     res.clearCookie('token')
     res.redirect('/login');
 }
+
+
+exports.ForgetPassword = (req,res)=>{
+    res.render('forgetPassword')
+}
