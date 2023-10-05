@@ -42,7 +42,6 @@ exports.PostCreateBlog = async (req,res)=>{
     }
 
     const image = req.file.filename;
-
     const imageSize = req.file.size;
 
     const title = req.body.title;
