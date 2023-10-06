@@ -204,3 +204,10 @@ exports.logout = (req,res)=>{
 exports.ForgetPassword = (req,res)=>{
     res.render('forgetPassword')
 }
+
+// render forget password -> post
+
+// render reset your password
+exports.ResetYourPassword = (req,res)=>{
+    res.render('ResetYourPassword')
+}
