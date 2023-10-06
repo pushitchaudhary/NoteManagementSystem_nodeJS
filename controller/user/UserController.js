@@ -200,7 +200,7 @@ exports.logout = (req,res)=>{
     res.redirect('/login');
 }
 
-
+// render forget password
 exports.ForgetPassword = (req,res)=>{
     res.render('forgetPassword')
 }
