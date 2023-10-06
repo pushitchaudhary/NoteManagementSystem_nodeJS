@@ -14,6 +14,7 @@ router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // a
 
 router.route('/forgetPassword').get(ForgetPassword)
 router.route('/resetYourPassword').get(ResetYourPassword)
+router.route('/identify_account').all(Identify_router)
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
 router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
