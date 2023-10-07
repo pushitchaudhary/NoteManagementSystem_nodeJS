@@ -231,3 +231,8 @@ exports.ResetYourPassword = (req,res)=>{
 exports.identify_account = (req,res)=>{
     res.render('identify_account');
 }
+
+exports.PostIdentify_account = (req,res)=>{
+    const UserID = req.params.id;
+    console.log(UserID);   // -> user id liyako taki  reset your password page ma pathauna saku
+}
