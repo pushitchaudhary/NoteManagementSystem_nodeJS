@@ -90,6 +90,10 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+#user_image{
+    border: 2px solid red;
+}
+
     </style>
 </head>
 <body>
@@ -98,7 +102,12 @@ input[type="submit"]:hover {
         <form>
             <div class="form-group">
                 <label for="email">These accounts matched your search</label>
-                <input type="text" id="email" name="email" required>
+                <hr>
+                <div style="display:flex ;">
+                    <img src="/image/login.jpg" height="60px" id="user_image"  alt="fasdf" srcset="">
+                    <p style="margin-left:20px ;"><a href="">This is my account</a></p>
+                </div>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Search">
