@@ -215,7 +215,7 @@ exports.PostForgetPassword = async (req,res)=>{
     })
 
     if(userDb.length == 1){
-        res.render('identify_account',userDb)
+        res.render('identify_account',{userDb})
     }
 }
 
