@@ -232,7 +232,15 @@ exports.identify_account = (req,res)=>{
     res.render('identify_account');
 }
 
-exports.PostIdentify_account = (req,res)=>{
+exports.PostIdentify_account = async (req,res)=>{
     const UserID = req.params.id;
     console.log(UserID);   // -> user id liyako taki  reset your password page ma pathauna saku
+
+    const userDetails =  await user.findAll({
+        where:{
+            id:UserID
+        }
+    })
+
+    console.log(userDetails) /// continue from here
 }
