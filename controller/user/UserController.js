@@ -205,6 +205,20 @@ exports.ForgetPassword = (req,res)=>{
     res.render('forgetPassword')
 }
 
+exports.PostForgetPassword = async (req,res)=>{
+    const email = req.body.email;
+
+    const userDb = await user.findAll({
+        where:{
+            email:email
+        }
+    })
+
+    if(userDb.length == 1){
+        res.render('identify_account',userDb)
+    }
+}
+
 // render forget password -> post
 
 // render reset your password

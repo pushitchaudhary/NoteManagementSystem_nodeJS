@@ -1,6 +1,6 @@
 const { RenderDeleteBlog } = require('../controller/blog/blogController');
 const { NotExist } = require('../controller/extra/extra');
-const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account } = require('../controller/user/UserController');
+const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 
@@ -12,7 +12,7 @@ router.route('/deleteAccount/:id').get(isLoggedIn, RenderDeleteBlog)    // delet
 router.route('/finalAccountDelete/:id').post(isLoggedIn, PostAccountDelete)     // Account Delete garn ko lagi
 router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // account delete alert
 
-router.route('/forgetPassword').get(ForgetPassword)
+router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
 router.route('/resetYourPassword').get(ResetYourPassword)
 router.route('/identify_account').get(identify_account)   //-> kaam baki xha
 
