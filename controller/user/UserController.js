@@ -211,3 +211,7 @@ exports.ForgetPassword = (req,res)=>{
 exports.ResetYourPassword = (req,res)=>{
     res.render('ResetYourPassword')
 }
+
+exports.identify_account = (req,res)=>{
+    res.render('identify_account');
+}

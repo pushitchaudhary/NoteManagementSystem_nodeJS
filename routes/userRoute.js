@@ -1,6 +1,6 @@
 const { RenderDeleteBlog } = require('../controller/blog/blogController');
 const { NotExist } = require('../controller/extra/extra');
-const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword } = require('../controller/user/UserController');
+const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 
@@ -14,7 +14,7 @@ router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // a
 
 router.route('/forgetPassword').get(ForgetPassword)
 router.route('/resetYourPassword').get(ResetYourPassword)
-router.route('/identify_account').all(Identify_router)
+router.route('/identify_account').get(identify_account)   //-> kaam baki xha
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
 router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
