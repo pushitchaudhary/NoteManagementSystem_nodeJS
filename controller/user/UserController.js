@@ -242,5 +242,20 @@ exports.PostIdentify_account = async (req,res)=>{
         }
     })
 
-    console.log(userDetails) /// continue from here
+    console.log(userDetails[0].id) 
+
+    if(userDetails[0].id == UserID){
+        console.log('id matched')
+    }else{
+        console.log('id not matched');
+    }
+    
+
+    /*
+    - user id valid xha ki xhain compare garne 
+    - if xha vane resert password page ma redirect garne value sahit 
+    - xhain vane error faalne
+
+
+    */
 }
