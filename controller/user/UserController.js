@@ -242,10 +242,8 @@ exports.PostIdentify_account = async (req,res)=>{
         }
     })
 
-    console.log(userDetails[0].id) 
-
     if(userDetails[0].id == UserID){
-        console.log('id matched')
+        res.redirect(`/resetYourPassword/${UserID}}`)
     }else{
         console.log('id not matched');
     }
