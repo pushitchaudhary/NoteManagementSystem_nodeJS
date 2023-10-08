@@ -225,8 +225,24 @@ exports.PostForgetPassword = async (req,res)=>{
 
 // render reset your password
 exports.ResetYourPassword = (req,res)=>{
-    res.render('ResetYourPassword')
+    const userId =  req.params.id
+    res.render('ResetYourPassword',{userId})
 }
+
+exports.PostResetYourPassword = (req,res)=>{
+    const userId = req.params.id;
+    console.log(req.body)
+    console.log(userId);
+
+    const method = req.body.resetMethod;
+
+    if(method == 'email'){
+        console.log('email matched')
+    }else{
+        console.log('password login')
+    }
+}
+
 
 exports.identify_account = (req,res)=>{
     res.render('identify_account');
@@ -234,7 +250,6 @@ exports.identify_account = (req,res)=>{
 
 exports.PostIdentify_account = async (req,res)=>{
     const UserID = req.params.id;
-    console.log(UserID);   // -> user id liyako taki  reset your password page ma pathauna saku
 
     const userDetails =  await user.findAll({
         where:{
@@ -243,7 +258,7 @@ exports.PostIdentify_account = async (req,res)=>{
     })
 
     if(userDetails[0].id == UserID){
-        res.redirect(`/resetYourPassword/${UserID}}`)
+        res.redirect(`/resetYourPassword/${userDetails[0].id}`)
     }else{
         console.log('id not matched');
     }

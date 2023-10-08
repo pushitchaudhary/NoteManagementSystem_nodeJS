@@ -1,6 +1,6 @@
 const { RenderDeleteBlog } = require('../controller/blog/blogController');
 const { NotExist } = require('../controller/extra/extra');
-const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account } = require('../controller/user/UserController');
+const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account, PostResetYourPassword } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 
@@ -13,7 +13,7 @@ router.route('/finalAccountDelete/:id').post(isLoggedIn, PostAccountDelete)     
 router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // account delete alert
 
 router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
-router.route('/resetYourPassword/:id').get(ResetYourPassword)
+router.route('/resetYourPassword/:id').get(ResetYourPassword).post(PostResetYourPassword)
 router.route('/identify_account/:id').get(identify_account).post(PostIdentify_account)   //-> kaam baki xha
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
