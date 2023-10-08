@@ -224,9 +224,16 @@ exports.PostForgetPassword = async (req,res)=>{
 // render forget password -> post
 
 // render reset your password
-exports.ResetYourPassword = (req,res)=>{
+exports.ResetYourPassword = async (req,res)=>{
     const userId =  req.params.id
-    res.render('ResetYourPassword',{userId})
+
+    const UserDetails = await user.findAll({
+        where:{
+            id:userId
+        }
+    })
+
+    res.render('ResetYourPassword',{UserDetails})
 }
 
 exports.PostResetYourPassword = (req,res)=>{
@@ -239,7 +246,7 @@ exports.PostResetYourPassword = (req,res)=>{
     if(method == 'email'){
         console.log('email matched')
     }else{
-        console.log('password login')
+        res.redirect('/login')
     }
 }
 
