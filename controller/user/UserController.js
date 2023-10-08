@@ -269,13 +269,10 @@ exports.PostIdentify_account = async (req,res)=>{
     }else{
         console.log('id not matched');
     }
-    
 
-    /*
-    - user id valid xha ki xhain compare garne 
-    - if xha vane resert password page ma redirect garne value sahit 
-    - xhain vane error faalne
+}
 
-
-    */
+// otp
+exports.RenderOtpCode = (req,res)=>{
+    res.render('otpCode')
 }
