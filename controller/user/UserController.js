@@ -256,7 +256,14 @@ exports.PostResetYourPassword = async (req,res)=>{
             subject: 'Password Forget',
             text: `your otp is ${otpGenerate}`
         })
+        UserDet[0].otp = otpGenerate;
+        UserDet[0].otpGeneratedTime = Date.now();
+        await UserDet[0].save();
+
+
         res.send('Otp send')
+
+
     }else{
         res.redirect('/login')
     }
