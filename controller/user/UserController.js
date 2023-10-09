@@ -316,6 +316,9 @@ exports.PostRenderOtpCode =async (req,res)=>{
     if(UserData[0].otp == UserInputOtp){
         const CurrentTime = Date.now();
         if(CurrentTime -  UserData[0].otpGeneratedTime <= 120000){
+            UserData[0].otp = null;
+            UserData[0].otpGeneratedTime = null;
+            await UserData[0].save();
             console.log('login success')
         }else{
             console.log('otp expired')
