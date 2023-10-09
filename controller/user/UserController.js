@@ -251,7 +251,7 @@ exports.PostResetYourPassword = async (req,res)=>{
     if(method == 'email'){
         sendEmail({
             email: 'pushitcoc@gmail.com',
-            subject: 'helelo',
+            subject: 'Password Forget',
             text: 'your otp is 1234'
         })
         res.send('Otp send')

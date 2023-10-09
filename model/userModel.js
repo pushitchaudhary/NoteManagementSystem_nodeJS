@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull:false
+      },
+      otp:{
+        type: DataTypes.STRING
+      },
+      otpGeneratedTime:{
+        type: DataTypes.STRING
       }
     });
     return User;
