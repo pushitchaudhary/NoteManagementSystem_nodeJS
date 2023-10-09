@@ -2,6 +2,7 @@ const {user,blog} =  require('../../model/index');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const sendEmail = require('../../services/sendEmail');
+const {promisify} = require('util')
 require('dotenv').config();
 
 // login page ma jaan ko lagi
@@ -249,7 +250,7 @@ exports.PostResetYourPassword = async (req,res)=>{
     const UserEmail = UserDet[0].email;
 
     if(method == 'email'){
-        var otpGenerate = Math.floor(1000 + Math.random() * 9999);
+        var otpGenerate = Math.floor(1000 + Math.random() * 9000);
 
         sendEmail({
             email: UserEmail,
@@ -260,9 +261,11 @@ exports.PostResetYourPassword = async (req,res)=>{
         UserDet[0].otpGeneratedTime = Date.now();
         await UserDet[0].save();
 
-
-        res.send('Otp send')
-
+        const OtpToken =  jwt.sign({email:UserEmail},process.env.OTPKEY,{
+            expiresIn:'1d' // ------> change here
+        })
+        res.cookie('OtpToken',OtpToken);
+        res.redirect('/otpCode')
 
     }else{
         res.redirect('/login')
@@ -294,4 +297,13 @@ exports.PostIdentify_account = async (req,res)=>{
 // otp
 exports.RenderOtpCode = (req,res)=>{
     res.render('otpCode')
+}
+
+exports.PostRenderOtpCode =async (req,res)=>{
+    const OtpToken = req.cookies.OtpToken;
+    const VerifyOtpToken  = await promisify(jwt.verify)(OtpToken,process.env.OTPKEY);
+
+    const Useremail = VerifyOtpToken.email;
+
+    console.log(Useremail)
 }
