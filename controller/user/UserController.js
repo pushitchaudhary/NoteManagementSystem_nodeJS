@@ -251,11 +251,10 @@ exports.PostResetYourPassword = async (req,res)=>{
     if(method == 'email'){
         var otpGenerate = Math.floor(1000 + Math.random() * 9999);
 
-        console.log(otpGenerate)
         sendEmail({
             email: UserEmail,
             subject: 'Password Forget',
-            text: 'your otp is 1234'
+            text: `your otp is ${otpGenerate}`
         })
         res.send('Otp send')
     }else{
