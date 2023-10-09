@@ -239,8 +239,6 @@ exports.ResetYourPassword = async (req,res)=>{
 
 exports.PostResetYourPassword = async (req,res)=>{
     const userId = req.params.id;
-    console.log(req.body)
-    console.log(userId);
     const method = req.body.resetMethod;
 
     const UserDet = await user.findAll({
@@ -248,9 +246,14 @@ exports.PostResetYourPassword = async (req,res)=>{
             id:userId
         }
     })
+    const UserEmail = UserDet[0].email;
+
     if(method == 'email'){
+        var otpGenerate = Math.floor(1000 + Math.random() * 9999);
+
+        console.log(otpGenerate)
         sendEmail({
-            email: 'pushitcoc@gmail.com',
+            email: UserEmail,
             subject: 'Password Forget',
             text: 'your otp is 1234'
         })
