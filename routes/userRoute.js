@@ -25,4 +25,7 @@ router.route('/editProfile/:userId').get(isLoggedIn, RenderEditProfile)     // E
 router.route('/updateProfile/:id').post(isLoggedIn, PostUpdateProfile)      // Profile Upadte garn ko lagi
 
 
+
+
+
 module.exports = router;

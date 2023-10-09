@@ -1,6 +1,7 @@
 const {user,blog} =  require('../../model/index');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const sendEmail = require('../../services/sendEmail');
 require('dotenv').config();
 
 // login page ma jaan ko lagi
@@ -236,15 +237,24 @@ exports.ResetYourPassword = async (req,res)=>{
     res.render('ResetYourPassword',{UserDetails})
 }
 
-exports.PostResetYourPassword = (req,res)=>{
+exports.PostResetYourPassword = async (req,res)=>{
     const userId = req.params.id;
     console.log(req.body)
     console.log(userId);
-
     const method = req.body.resetMethod;
 
+    const UserDet = await user.findAll({
+        where:{
+            id:userId
+        }
+    })
     if(method == 'email'){
-        console.log('email matched')
+        sendEmail({
+            email: 'pushitcoc@gmail.com',
+            subject: 'helelo',
+            text: 'your otp is 1234'
+        })
+        res.send('Otp send')
     }else{
         res.redirect('/login')
     }
