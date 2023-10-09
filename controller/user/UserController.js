@@ -302,8 +302,18 @@ exports.RenderOtpCode = (req,res)=>{
 exports.PostRenderOtpCode =async (req,res)=>{
     const OtpToken = req.cookies.OtpToken;
     const VerifyOtpToken  = await promisify(jwt.verify)(OtpToken,process.env.OTPKEY);
-
     const Useremail = VerifyOtpToken.email;
-
     console.log(Useremail)
+    const UserInputOtp = req.body.otp;
+    console.log(UserInputOtp);
+
+    const UserData = await user.findAll({
+        where:{
+            email:Useremail
+        }
+    })
+
+    
+
+
 }
