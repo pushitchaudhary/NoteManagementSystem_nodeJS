@@ -319,7 +319,7 @@ exports.PostRenderOtpCode =async (req,res)=>{
             UserData[0].otp = null;
             UserData[0].otpGeneratedTime = null;
             await UserData[0].save();
-            console.log('login success')
+            res.redirect('/newPassword')
         }else{
             console.log('otp expired')
         }
@@ -330,4 +330,21 @@ exports.PostRenderOtpCode =async (req,res)=>{
 
 exports.RenderNewPassword = (req,res)=>{
     res.render('newPassword.ejs')
+}
+
+exports.PostNewPassword = async (req,res)=>{
+    const OtpToken = req.cookies.OtpToken;
+    const VerifyOtpToken  = await promisify(jwt.verify)(OtpToken,process.env.OTPKEY);
+    const Useremail = VerifyOtpToken.email;
+
+    const newPassword = req.body.password;
+    const confPassword = req.body.confirm_password;
+
+
+    const UserDetails = await user.findAll({
+        where:{
+            email :Useremail
+        }
+    })
+    console.log(UserDetails);
 }
