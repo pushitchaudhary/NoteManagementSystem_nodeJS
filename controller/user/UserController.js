@@ -340,11 +340,23 @@ exports.PostNewPassword = async (req,res)=>{
     const newPassword = req.body.password;
     const confPassword = req.body.confirm_password;
 
-
     const UserDetails = await user.findAll({
         where:{
             email :Useremail
         }
     })
-    console.log(UserDetails);
+
+    if(newPassword == confPassword){
+        if(UserDetails.length == 1){
+            UserDetails[0].password = await bcrypt.hash(newPassword,12);
+            await UserDetails[0].save();
+            res.redirect('/login')
+
+        }else{
+            res.send("Server Error")
+        }
+    }else{
+        res.send("password and confirm password don't match")
+    }
+
 }
