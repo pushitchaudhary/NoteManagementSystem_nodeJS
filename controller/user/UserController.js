@@ -326,8 +326,8 @@ exports.PostRenderOtpCode =async (req,res)=>{
     }else{
         res.send("Invalid Otp")
     }
+}
 
-
-
-
+exports.RenderNewPassword = (req,res)=>{
+    res.render('newPassword.ejs')
 }

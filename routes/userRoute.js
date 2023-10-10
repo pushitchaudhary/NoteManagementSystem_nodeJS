@@ -1,6 +1,6 @@
 const { RenderDeleteBlog } = require('../controller/blog/blogController');
 const { NotExist } = require('../controller/extra/extra');
-const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account, PostResetYourPassword, RenderOtpCode, PostRenderOtpCode } = require('../controller/user/UserController');
+const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account, PostResetYourPassword, RenderOtpCode, PostRenderOtpCode, RenderNewPassword } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 
@@ -16,6 +16,7 @@ router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
 router.route('/resetYourPassword/:id').get(ResetYourPassword).post(PostResetYourPassword)
 router.route('/identify_account/:id').get(identify_account).post(PostIdentify_account) 
 router.route('/otpCode').get(RenderOtpCode).post(PostRenderOtpCode)
+router.route('/newPassword').get(RenderNewPassword)
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
 router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
