@@ -1,6 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser')
 const app = express();
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const UserRoute = require('./routes/userRoute')
 const BlogRoute = require('./routes/blogRoute');
@@ -12,6 +14,15 @@ app.set('view engine','ejs')
 app.use(express.static('public/'))
 // image-folder access dina ko lagi
 app.use(express.static('uploads/'))
+
+app.use(session({
+    secret:'hello',
+    resave : false,
+    saveUninitialized :false
+}))
+
+app.use(flash())
+
 // Post baat aayeko data lai parse garn 
 app.use(cookieParser())
 app.use(express.json());
