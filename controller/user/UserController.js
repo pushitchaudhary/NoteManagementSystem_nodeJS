@@ -12,8 +12,15 @@ exports.RenderLoginPage1 = (req,res)=>{
 }
 
 exports.RenderLoginPage2 = (req,res)=>{
-    const error = req.flash('error')
-    res.render('login',{error})
+    const message = req.flash('message')
+    const messageColor = req.flash('color')
+    let color ='';
+    if(messageColor == 'success'){
+        color = 'success'
+    }else{
+        color = 'danger';
+    }
+    res.render('login',{message,color})
 }
 
 // if password wrong xha vane
@@ -74,7 +81,9 @@ exports.PostLogin = async (req,res)=>{
     })
 
     if(checkUserEmailInDB.length == 0){
-        res.render('notexist')
+        req.flash('message',"Account not exist")
+        req.flash('color',"danger")
+        res.redirect('/login')
     }else if(checkUserEmailInDB.length == 1){
         const obj = checkUserEmailInDB[0].id;
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
@@ -88,7 +97,8 @@ exports.PostLogin = async (req,res)=>{
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
             res.redirect('/home')
         }else{
-            req.flash("error",'Invalid Password');
+            req.flash("message",'Invalid Password');
+            req.flash('color',"danger")
             res.redirect('/login')
         }
     }else{
@@ -205,11 +215,6 @@ exports.logout = (req,res)=>{
     res.redirect('/login');
 }
 
-exports.otpCookiesClear = (req,res)=>{
-    res.clearCookie('OtpToken');
-    res.redirect('/login');
-}
-
 // render forget password
 exports.ForgetPassword = (req,res)=>{
     res.render('forgetPassword')
@@ -230,8 +235,6 @@ exports.PostForgetPassword = async (req,res)=>{
         return res.send ('user not found')
     }
 }
-
-// render forget password -> post
 
 // render reset your password
 exports.ResetYourPassword = async (req,res)=>{
@@ -268,18 +271,12 @@ exports.PostResetYourPassword = async (req,res)=>{
         UserDet[0].otp = otpGenerate;
         UserDet[0].otpGeneratedTime = Date.now();
         await UserDet[0].save();
-
-        // const OtpToken =  jwt.sign({email:UserEmail},process.env.OTPKEY,{
-        //     expiresIn:'1d' // ------> change here
-        // })
-        // res.cookie('OtpToken',OtpToken);
         res.redirect(`/otpCode/${UserEmail}`)
 
     }else{
         res.redirect('/login')
     }
 }
-
 
 exports.identify_account = (req,res)=>{
     res.render('identify_account');
@@ -326,7 +323,7 @@ exports.PostRenderOtpCode =async (req,res)=>{
             UserData[0].otpGeneratedTime = null;
             await UserData[0].save();
                 const OtpToken =  jwt.sign({email:Useremail},process.env.OTPKEY,{
-                    expiresIn:'1d' // ------> change here
+                    expiresIn:'1800s' // ------>  30 min 
                 })
                 res.cookie('OtpToken',OtpToken);
             res.redirect('/newPassword')
