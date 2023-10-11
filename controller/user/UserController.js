@@ -35,7 +35,15 @@ exports.RenderAccountDelete = (req,res)=>{
 
 // Register page ma jaan ko lagi
 exports.RenderRegisterPage = (req,res)=>{
-    res.render('register.ejs')
+    const message = req.flash('message');
+    const AlertColor = req.flash('color');
+    let color ='';
+    if(AlertColor == 'success'){
+        color = 'success';
+    }else{
+        color ='danger';
+    }
+    res.render('register.ejs',{message,color})
 }
 
 // user register garna ko lagi
@@ -63,7 +71,9 @@ exports.PostUserRegisters = async (req,res)=>{
             req.flash('color',"success")
             res.redirect('/login')
         }else{
-            res.send("This email already in use")
+            req.flash('message','This email already in use');
+            req.flash('color','danger');
+            res.redirect('/register')
         }
     }else{
         res.send("Password and Confirm Password does not match")
