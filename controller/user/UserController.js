@@ -205,6 +205,11 @@ exports.logout = (req,res)=>{
     res.redirect('/login');
 }
 
+exports.otpCookiesClear = (req,res)=>{
+    res.clearCookie('OtpToken');
+    res.redirect('/login');
+}
+
 // render forget password
 exports.ForgetPassword = (req,res)=>{
     res.render('forgetPassword')
@@ -264,11 +269,11 @@ exports.PostResetYourPassword = async (req,res)=>{
         UserDet[0].otpGeneratedTime = Date.now();
         await UserDet[0].save();
 
-        const OtpToken =  jwt.sign({email:UserEmail},process.env.OTPKEY,{
-            expiresIn:'1d' // ------> change here
-        })
-        res.cookie('OtpToken',OtpToken);
-        res.redirect('/otpCode')
+        // const OtpToken =  jwt.sign({email:UserEmail},process.env.OTPKEY,{
+        //     expiresIn:'1d' // ------> change here
+        // })
+        // res.cookie('OtpToken',OtpToken);
+        res.redirect(`/otpCode/${UserEmail}`)
 
     }else{
         res.redirect('/login')
@@ -299,14 +304,12 @@ exports.PostIdentify_account = async (req,res)=>{
 
 // otp
 exports.RenderOtpCode = (req,res)=>{
-    res.render('otpCode')
+    const Useremail = req.params.email;
+    res.render('otpCode',{Useremail})
 }
 
 exports.PostRenderOtpCode =async (req,res)=>{
-    const OtpToken = req.cookies.OtpToken;
-    const VerifyOtpToken  = await promisify(jwt.verify)(OtpToken,process.env.OTPKEY);
-    const Useremail = VerifyOtpToken.email;
-    console.log(Useremail)
+    const Useremail = req.params.email;
     const UserInputOtp = req.body.otp;
     console.log(UserInputOtp);
 
@@ -322,6 +325,10 @@ exports.PostRenderOtpCode =async (req,res)=>{
             UserData[0].otp = null;
             UserData[0].otpGeneratedTime = null;
             await UserData[0].save();
+                const OtpToken =  jwt.sign({email:Useremail},process.env.OTPKEY,{
+                    expiresIn:'1d' // ------> change here
+                })
+                res.cookie('OtpToken',OtpToken);
             res.redirect('/newPassword')
         }else{
             console.log('otp expired')
@@ -360,7 +367,9 @@ exports.PostNewPassword = async (req,res)=>{
                     }
                 }
             })
-            res.redirect('/login')
+
+            res.clearCookie('OtpToken')
+            res.redirect('/login');
         }else{
             res.send("Server Error")
         }
