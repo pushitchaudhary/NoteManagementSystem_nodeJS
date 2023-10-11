@@ -59,7 +59,9 @@ exports.PostUserRegisters = async (req,res)=>{
                 email:email,
                 password: await bcrypt.hash(password,12)
             })
-            res.redirect('/')
+            req.flash('message','Your account has been created successfully');
+            req.flash('color',"success")
+            res.redirect('/login')
         }else{
             res.send("This email already in use")
         }
