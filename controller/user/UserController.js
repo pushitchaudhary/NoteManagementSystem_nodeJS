@@ -348,10 +348,16 @@ exports.PostNewPassword = async (req,res)=>{
 
     if(newPassword == confPassword){
         if(UserDetails.length == 1){
-            UserDetails[0].password = await bcrypt.hash(newPassword,12);
-            await UserDetails[0].save();
-            res.redirect('/login')
 
+            await user.update({
+                password: await bcrypt.hash(newPassword,12)
+            },{where:{
+                    id:{
+                        id:UserDetails[0].id
+                    }
+                }
+            })
+            res.redirect('/login')
         }else{
             res.send("Server Error")
         }

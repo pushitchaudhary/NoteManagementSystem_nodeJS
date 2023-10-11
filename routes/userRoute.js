@@ -3,7 +3,6 @@ const { NotExist } = require('../controller/extra/extra');
 const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account, PostResetYourPassword, RenderOtpCode, PostRenderOtpCode, RenderNewPassword, PostNewPassword } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
-
 const router = require('express').Router();
 
 router.route('/logout').get(logout)
@@ -24,9 +23,6 @@ router.route('/login').get(RenderLoginPage2).post(PostLogin)   // login page ma 
 router.route('/passwordWrong').get(RenderPasswordWrong)     // if password wrong xha vane
 router.route('/editProfile/:userId').get(isLoggedIn, RenderEditProfile)     // Edit profile page kholna ko lagi
 router.route('/updateProfile/:id').post(isLoggedIn, PostUpdateProfile)      // Profile Upadte garn ko lagi
-
-
-
 
 
 module.exports = router;
