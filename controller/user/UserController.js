@@ -7,11 +7,13 @@ require('dotenv').config();
 
 // login page ma jaan ko lagi
 exports.RenderLoginPage1 = (req,res)=>{
-    res.render('login')
+
+    res.render("login")
 }
 
 exports.RenderLoginPage2 = (req,res)=>{
-    res.render('login')
+    const error = req.flash('error')
+    res.render('login',{error})
 }
 
 // if password wrong xha vane
@@ -86,7 +88,8 @@ exports.PostLogin = async (req,res)=>{
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
             res.redirect('/home')
         }else{
-            res.redirect('/passwordWrong')
+            req.flash("error",'Invalid Password');
+            res.redirect('/login')
         }
     }else{
         res.send("Something went wrong")

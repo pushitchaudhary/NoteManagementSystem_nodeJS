@@ -10,23 +10,27 @@ const ExtraRoute = require('./routes/extraRouter')
 // ejs file dekhauna ko lagi
 app.set('view engine','ejs')
 
-// folder access dina ko lagi
-app.use(express.static('public/'))
-// image-folder access dina ko lagi
-app.use(express.static('uploads/'))
-
 app.use(session({
-    secret:'hello',
+    secret:'helloworld',
     resave : false,
     saveUninitialized :false
 }))
 
 app.use(flash())
 
+// folder access dina ko lagi
+app.use(express.static('public/'))
+// image-folder access dina ko lagi
+app.use(express.static('uploads/'))
+
+
+
 // Post baat aayeko data lai parse garn 
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+
+
 
 app.use('',UserRoute, BlogRoute, ExtraRoute);
 

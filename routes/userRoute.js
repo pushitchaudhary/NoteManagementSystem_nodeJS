@@ -18,7 +18,7 @@ router.route('/otpCode').get(RenderOtpCode).post(PostRenderOtpCode)
 router.route('/newPassword').get(RenderNewPassword).post(PostNewPassword)
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
-router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
+// router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
 router.route('/login').get(RenderLoginPage2).post(PostLogin)   // login page ma jaan ko lagi method 2 
 router.route('/passwordWrong').get(RenderPasswordWrong)     // if password wrong xha vane
 router.route('/editProfile/:userId').get(isLoggedIn, RenderEditProfile)     // Edit profile page kholna ko lagi
