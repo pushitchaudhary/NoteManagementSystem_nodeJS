@@ -168,6 +168,7 @@ exports.PostAccountDelete  = async (req,res)=>{
 exports.RenderEditProfile =  async (req,res)=>{
     const userId = req.params.userId;
 
+
     // params baat ko value valid integer xha ki xhain check garn
     if (/^\d+$/.test(userId)){
         const DbUserId = await user.findAll({
@@ -176,6 +177,7 @@ exports.RenderEditProfile =  async (req,res)=>{
             }
         })
 
+        console.log(DbUserId);
         if(DbUserId.length == 1){
             res.render('editProfile',{DbUserId})
         }else{
@@ -211,7 +213,7 @@ exports.PostUpdateProfile =  async (req,res)=>{
                     id:id
                 }
             })
-            res.redirect(`/home/${userIdNumber}`)
+            res.redirect(`/home/`)
         }else{
             res.render('error404.ejs')
         }
