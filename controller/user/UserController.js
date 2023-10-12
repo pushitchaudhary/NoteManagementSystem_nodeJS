@@ -168,7 +168,15 @@ exports.PostAccountDelete  = async (req,res)=>{
 exports.RenderEditProfile =  async (req,res)=>{
     const userId = req.params.userId;
 
-
+    const message = req.flash('message');
+    const color = req.flash('color');
+    let AlertColor = '';
+    if(color == 'success'){
+        AlertColor = 'success';
+    }else{
+        AlertColor = 'danger;'
+    }
+    
     // params baat ko value valid integer xha ki xhain check garn
     if (/^\d+$/.test(userId)){
         const DbUserId = await user.findAll({
@@ -179,7 +187,7 @@ exports.RenderEditProfile =  async (req,res)=>{
 
         console.log(DbUserId);
         if(DbUserId.length == 1){
-            res.render('editProfile',{DbUserId})
+            res.render('editProfile',{DbUserId,message,AlertColor})
         }else{
             res.render('error404.ejs')
         }
@@ -218,7 +226,9 @@ exports.PostUpdateProfile =  async (req,res)=>{
             res.render('error404.ejs')
         }
     }else{
-
+        req.flash('message',"Something went wrong");
+        req.flash('color',"danger");
+        res.redirect(`/editProfile/${id}`)
     }
 }
 
