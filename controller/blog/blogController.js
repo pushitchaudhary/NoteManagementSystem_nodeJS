@@ -13,36 +13,37 @@ exports.RederHomeWithoutID = (req,res)=>{
 exports.renderHomePage = async(req, res) => {
     const message = req.flash('message');
     const color = req.flash('color');
-    console.log(message,color);
-
-
     const data = req.user[0].id;
     const UserData = await user.findAll({
         where:{
             id:data
         }
     })
-  
-
     const Userblogs = await blog.findAll({
         include:{
             model: user
         }
     })
-
     res.render('blog.ejs',{Userblogs,UserData,message,color})
 }
 
 // create Blog
 exports.RenderCreateBlog = async (req,res)=>{
-    res.render('createBlog.ejs')
+    const message = req.flash('message');
+    const color = req.flash('color')
+
+    res.render('createBlog.ejs',{message,color})
 }
 
 // create blog post
 exports.PostCreateBlog = async (req,res)=>{
 
     if(!req.file){
-        return res.send('Image required')
+        req.flash('message',"Something went wrong");  // --->> from here
+        req.flash('color','danger');
+        return res.redirect('/createBlog')
+        // return res.send('Image required')
+        
     }
 
     const image = req.file.filename;
@@ -64,7 +65,10 @@ exports.PostCreateBlog = async (req,res)=>{
             })
             res.redirect('/home')
         }else{
-            res.render('error404.ejs')
+            // res.render('error404.ejs')
+            req.flash('message',"Something went wrong");
+            req.flash('color','danger');    // ---->> from here
+            res.redirect('/createBlog')
         }
     }else{
         res.send("Image size is too much")
