@@ -76,7 +76,9 @@ exports.PostUserRegisters = async (req,res)=>{
             res.redirect('/register')
         }
     }else{
-        res.send("Password and Confirm Password does not match")
+        req.flash('message','Password and Confirm Password does not match');
+        req.flash('color','danger')
+        res.redirect('/register');
     }    
 }
 
