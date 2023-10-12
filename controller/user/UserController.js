@@ -23,11 +23,6 @@ exports.RenderLoginPage2 = (req,res)=>{
     res.render('login',{message,color})
 }
 
-// if password wrong xha vane
-exports.RenderPasswordWrong = (req,res)=>{
-    res.render('passwordWrong')
-}
-
 // account delete alert
 exports.RenderAccountDelete = (req,res)=>{
     res.render('accountDeletedAlert');
@@ -98,7 +93,7 @@ exports.PostLogin = async (req,res)=>{
         req.flash('message',"Account not exist")
         req.flash('color',"danger")
         res.redirect('/login')
-    }else if(checkUserEmailInDB.length == 1){
+    }else if(checkUserEmailInDB.length ==1){
         const obj = checkUserEmailInDB[0].id;
         const confirmPassword = await bcrypt.compare(password, checkUserEmailInDB[0].password);
         if(confirmPassword){
@@ -116,7 +111,9 @@ exports.PostLogin = async (req,res)=>{
             res.redirect('/login')
         }
     }else{
-        res.send("Something went wrong")
+        req.flash('message','Something went wrong')
+        req.flash('color','danger');
+        res.redirect('/login')
     }
 }
 
