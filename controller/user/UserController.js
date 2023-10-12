@@ -171,10 +171,11 @@ exports.RenderEditProfile =  async (req,res)=>{
     const message = req.flash('message');
     const color = req.flash('color');
     let AlertColor = '';
+    console.log('gjgj ',AlertColor)
     if(color == 'success'){
         AlertColor = 'success';
     }else{
-        AlertColor = 'danger;'
+        AlertColor = 'danger';
     }
     
     // params baat ko value valid integer xha ki xhain check garn
@@ -221,9 +222,13 @@ exports.PostUpdateProfile =  async (req,res)=>{
                     id:id
                 }
             })
-            res.redirect(`/home/`)
+            req.flash('message',"Your profile has been successfully updated");
+            req.flash('color',"success");
+            res.redirect(`/home`)
         }else{
-            res.render('error404.ejs')
+            req.flash('message',"Something went wrong");
+            req.flash('color',"danger");
+            res.redirect(`/editProfile/${id}`)
         }
     }else{
         req.flash('message',"Something went wrong");

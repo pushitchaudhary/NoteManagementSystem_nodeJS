@@ -11,8 +11,12 @@ exports.RederHomeWithoutID = (req,res)=>{
 
 
 exports.renderHomePage = async(req, res) => {
-    const data = req.user[0].id;
+    const message = req.flash('message');
+    const color = req.flash('color');
+    console.log(message,color);
 
+
+    const data = req.user[0].id;
     const UserData = await user.findAll({
         where:{
             id:data
@@ -26,7 +30,7 @@ exports.renderHomePage = async(req, res) => {
         }
     })
 
-    res.render('blog.ejs',{Userblogs,UserData})
+    res.render('blog.ejs',{Userblogs,UserData,message,color})
 }
 
 // create Blog

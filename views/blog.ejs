@@ -4,13 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Page</title>
-    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+nav {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 20px;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007BFF;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.blog-post {
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    margin-left: 35px; 
+}
+
+.blog-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.blog-content {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog-post {
+    width: calc(31.33% - 20px);
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav .left-nav {
+    margin-right: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+    </style>
 </head>
 <body>
     <header>
-        <h3>Welcome, <span id="user-name" style="color: yellow ;"><%- UserData[0].name %></span></h3>
+        <h3>Welcome, <span id="user-name" style="color: yellow;"><%- UserData[0].name %></span></h3>
         <h1>Note Management System</h1>
         
+    
 
         <nav>
             <div class="left-nav">
@@ -20,30 +121,42 @@
                 <a href="/editProfile/<%- UserData[0].id %>">Edit Profile</a>
             </div>
             <ul>
-                <li><a href="/logout"> Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
-        <div class="container">
-            <div class="blog-list">
-                <% Userblogs.forEach((item)=>{ %>
-                    <div class="blog-post">
-                        <h1 class="blog-title"> <%- item.title %> </h1>
-                        <h3> <%- item.subtitle %> </h3>
-                        <img src="<%- item.image %>" height="100px" width="100px" alt="" srcset="">
-                        <p class="blog-content">
-                          <%  if(item.description.length < 50){ %>
-                                <%- item.description %>
-                           <% }else{ %>
-                                <%- item.description.slice(0,100) %>... 
-                            <% } %>
-                        </p>
-                        <b><p>Author: <%- item.user.name %>  </p></b> 
-                        <a href="/singleBlog/<%- item.id %>">more...</a>
-                    </div>
-                <%  }) %>
-            </div>
+    <% if (message != '' && message) { %>
+        <div class="alert alert-<%- color %> alert-dismissible fade show" role="alert">
+            <strong><%- message %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-      
+    <% } %>
+    <div class="container">
+       
+
+        <div class="blog-list">
+            <% Userblogs.forEach((item) => { %>
+                <div class="blog-post">
+                    <h1 class="blog-title"><%- item.title %></h1>
+                    <h3><%- item.subtitle %></h3>
+                    <img src="<%- item.image %>" height="100px" width="100px" alt="" srcset="">
+                    <p class="blog-content">
+                        <% if (item.description.length < 50) { %>
+                            <%- item.description %>
+                        <% } else { %>
+                            <%- item.description.slice(0, 100) %>...
+                        <% } %>
+                    </p>
+                    <b><p>Author: <%- item.user.name %>  </p></b> 
+                    <a href="/singleBlog/<%- item.id %>">more...</a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
