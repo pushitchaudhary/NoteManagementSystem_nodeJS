@@ -53,7 +53,7 @@ exports.PostCreateBlog = async (req,res)=>{
     const description = req.body.description;
     const userId = req.user[0].id;
     
-    if(imageSize < 100000){
+    if(imageSize < 1000){
         if (/^\d+$/.test(userId)) {
             await blog.create({
                 title:title,
@@ -64,13 +64,14 @@ exports.PostCreateBlog = async (req,res)=>{
             })
             res.redirect('/home')
         }else{
-            // res.render('error404.ejs')
             req.flash('message',"Something went wrong");
-            req.flash('color','danger');    // ---->> from here
+            req.flash('color','danger');    
             res.redirect('/createBlog')
         }
     }else{
-        res.send("Image size is too much")
+        req.flash('message',"Image size is too much");  
+        req.flash('color','danger');    
+        res.redirect('/createBlog')
     }
 
 }
