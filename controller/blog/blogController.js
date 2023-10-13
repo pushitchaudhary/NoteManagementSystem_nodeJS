@@ -53,7 +53,7 @@ exports.PostCreateBlog = async (req,res)=>{
     const description = req.body.description;
     const userId = req.user[0].id;
     
-    if(imageSize < 1000){
+    if(imageSize < 100000){
         if (/^\d+$/.test(userId)) {
             await blog.create({
                 title:title,
@@ -62,6 +62,8 @@ exports.PostCreateBlog = async (req,res)=>{
                 userId:userId,
                 image:process.env.BLOGIMAGEPATH+image
             })
+            req.flash('message',"Successfully Created");
+            req.flash('color','success');    
             res.redirect('/home')
         }else{
             req.flash('message',"Something went wrong");
@@ -73,11 +75,14 @@ exports.PostCreateBlog = async (req,res)=>{
         req.flash('color','danger');    
         res.redirect('/createBlog')
     }
-
 }
 
 // blog edit hern ko lagi
 exports.RenderEditBlog = async (req,res)=>{
+    const message = req.flash('message');
+    const color = req.flash('color');
+    console.log('sdfsdfsf ',message, color)
+
     const postId = req.params.id;
     // url ma aako value valid interger xhain ki xhain check garn
     if (/^\d+$/.test(postId)){
@@ -89,7 +94,7 @@ exports.RenderEditBlog = async (req,res)=>{
         })
         // url ma aayeko value database sng match garyo bhane updateblog page ma pathe dine
         if(blogPostId.length == 1){
-            res.render('updateBlog',{blogPostId})
+            res.render('updateBlog',{blogPostId,message,color})
         }else{
             res.render('error404.ejs')
         }
@@ -120,7 +125,9 @@ exports.PostEditBlog = async (req,res)=>{
         const oldImageName = databaseImage.slice(urlCount)
         await fs.unlink(`uploads/${oldImageName}`,(err)=>{
             if(err){
-                return res.send('error happend - photo delete')
+                req.flash('message',"Something went wrong");
+                req.flash('color','danger');  
+                return res.redirect(`/updateBlog/${postId}`)
             }else{
                 console.log('Photo deleted');
             }
@@ -130,7 +137,7 @@ exports.PostEditBlog = async (req,res)=>{
     }
 
     // url ma valid interger value aako xha ki xhain garn
-    if (/^\d+$/.test(postId)) {
+    if (/^\d+$/.test(postId)=='a') {
         // url ma aako user Id Blog_Db ma xha ki xhain check garn lai
         const blogDbCheck = await blog.findAll({
             where:{
@@ -158,7 +165,10 @@ exports.PostEditBlog = async (req,res)=>{
                             id:postId
                         }
                     })
-                res.redirect(`/singleBlog/${postId}`)
+                req.flash('message',"Successfully Post Updated");
+                req.flash('color','success');  
+                // return res.redirect(`/updateBlog/${postId}`)
+                return res.redirect(`/singleBlog/${postId}`)
             }else{
                 res.render('error404.ejs')
             }
@@ -166,7 +176,10 @@ exports.PostEditBlog = async (req,res)=>{
             res.render('error404.ejs')
         }
     }else{
-        res.render('error404.ejs')
+        // res.render('error404.ejs')
+        req.flash('message',"Something went wrong");
+        req.flash('color','danger');  
+        return res.redirect(`/updateBlog/${postId}`)
     }  
 }
 

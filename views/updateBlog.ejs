@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Blog Post</title>
     <link rel="stylesheet" href="/css/updateBlog.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    .alert {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+    </style>
 </head>
 <body>
 
     <header>
         <h1>Update a Blog Post</h1>
     </header>
+    <div id="alerts">
+        <% if (message != '' && message) { %>
+            <div class="alert alert-<%- color %> alert-dismissible fade show" role="alert">
+                <strong><%- message %></strong>
+                <button type="button" onclick="close" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <% } %>
+        </div>
 
     <div class="container">
         <form action="/updateBlog/<%- blogPostId[0].id %>" method="post" enctype="multipart/form-data">
@@ -43,5 +63,16 @@
             </div>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        setTimeout(function() {
+           const alert = document.getElementById('alerts');
+           if (alert) {
+               alert.style.display = 'none';
+           }
+       }, 3000);
+   </script>
 </body>
 </html>
