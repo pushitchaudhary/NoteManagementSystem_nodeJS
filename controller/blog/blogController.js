@@ -297,8 +297,8 @@ exports.RenderBlogDelete =  async (req,res)=>{
                 id:postNum
             }
         })
-        // req.flash('message','Post Deleted Successfully');
-        // req.flash('color','success');
+        req.flash('message','Post Deleted Successfully');
+        req.flash('color','success');
         res.redirect('/home/')
     }else{
         req.flash('message','Something Went Wrong');
