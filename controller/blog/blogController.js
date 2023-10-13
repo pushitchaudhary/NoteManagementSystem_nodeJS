@@ -201,6 +201,9 @@ exports.RenderDeleteBlog =  async (req,res)=>{
             res.render('deleteAccount',{userId})
         }else{
             res.render('error404.ejs')
+            // req.flash('message','Something went wrong');
+            // req.flash('color','danger');
+            // res.redirect('/')
         }
     }else{
         res.render('error404.ejs')
@@ -294,9 +297,13 @@ exports.RenderBlogDelete =  async (req,res)=>{
                 id:postNum
             }
         })
+        // req.flash('message','Post Deleted Successfully');
+        // req.flash('color','success');
         res.redirect('/home/')
     }else{
-        res.render('error404.ejs')
+        req.flash('message','Something Went Wrong');
+        req.flash('color','danger');
+        res.redirect('/home')
     }
 }
 
