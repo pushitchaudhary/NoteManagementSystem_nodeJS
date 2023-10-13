@@ -137,7 +137,7 @@ exports.PostEditBlog = async (req,res)=>{
     }
 
     // url ma valid interger value aako xha ki xhain garn
-    if (/^\d+$/.test(postId)=='a') {
+    if (/^\d+$/.test(postId)) {
         // url ma aako user Id Blog_Db ma xha ki xhain check garn lai
         const blogDbCheck = await blog.findAll({
             where:{
@@ -174,9 +174,11 @@ exports.PostEditBlog = async (req,res)=>{
             }
         }else{
             res.render('error404.ejs')
+            req.flash('message',"Something went wrong");
+            req.flash('color','danger');  
+            return res.redirect(`/updateBlog/${postId}`)
         }
     }else{
-        // res.render('error404.ejs')
         req.flash('message',"Something went wrong");
         req.flash('color','danger');  
         return res.redirect(`/updateBlog/${postId}`)
@@ -210,7 +212,8 @@ exports.RenderDeleteBlog =  async (req,res)=>{
 // single blog hern ko lagi
 exports.RenderSingleBlog = async (req,res)=>{
     const postId = req.params.postId;
-
+    const message = req.flash('message');
+    const color = req.flash('color');
     const token = req.cookies.token
 
     if(!token){
@@ -252,10 +255,10 @@ exports.RenderSingleBlog = async (req,res)=>{
 
                     if(UserId == postUserId){
                         UserMatched = true;
-                        res.render('singleBlog',{userName,chekUserData,UserMatched})
+                        res.render('singleBlog',{userName,chekUserData,UserMatched,message,color})
                     }else{
                         UserMatched = false;
-                        res.render('singleBlog',{userName,chekUserData,UserMatched})
+                        res.render('singleBlog',{userName,chekUserData,UserMatched,message,color})
                     }
                 }else{
                     res.render('error404.ejs')

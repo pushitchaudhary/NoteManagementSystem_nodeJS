@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beautiful Blog Post</title>
     <link rel="stylesheet" href="/css/singleBlog.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    .alert {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+    </style>
 </head>
 <style>
    
@@ -17,14 +27,24 @@
         <a href="/home">Show Blogs</a>
     </nav>
     <main>
+        <div id="alerts">
+            <% if (message != '' && message) { %>
+                <div class="alert alert-<%- color %> alert-dismissible fade show" role="alert">
+                    <strong><%- message %></strong>
+                    <button type="button" onclick="close" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+            </div>
         <article class="blog-post">
             <% const updatedAt = new Date(chekUserData[0].updatedAt); %>
 <p class="blog-meta">Posted by <b style="color: black;"><%- userName[0].name %></b> on <%= updatedAt.toLocaleDateString('en-US', {day: '2-digit', month: 'long', year: 'numeric' }) %></p>
  <br>
             <h2  style="display:inline-block ;"> <%- chekUserData[0].title %></h2> 
            <% if(UserMatched == true){ %>
-                <button style="float:right; margin-left: 10px;"><p style="font-size: 15px ;"><a href="/updateBlog/<%- chekUserData[0].id %>">Edit</a></p></button>
-                <button style="float:right ;"><p style="font-size: 15px ;"><a href="/deleteBlog/<%- chekUserData[0].id %>">Delete</a></p></button>
+                <button style="float:right; margin-left: 10px; border-radius: 5px; background-color: #cea15d; color: rgb(102, 86, 86); padding: 0px 20px; text-align: center; font-size: 15px; cursor: pointer; border: none;"><a href="/updateBlog/<%- chekUserData[0].id %>">Edit</a></p></button>
+                <button style="float:right; border-radius: 5px; background-color: #e74c3c; color: #fff; padding: 0px 20px; text-align: center; font-size: 15px; cursor: pointer; border: none;"><p style="font-size: 15px ;"><a href="/deleteBlog/<%- chekUserData[0].id %>">Delete</a></p></button>
            <% }%>
             <h4><%- chekUserData[0].subtitle %></h4>
             <img src="<%- chekUserData[0].image %>" height="100" width="100" alt="" srcset="">
@@ -33,5 +53,16 @@
             </p>
         </article>
     </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        setTimeout(function() {
+           const alert = document.getElementById('alerts');
+           if (alert) {
+               alert.style.display = 'none';
+           }
+       }, 3000);
+   </script>
 </body>
 </html>
