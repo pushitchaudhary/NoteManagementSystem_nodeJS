@@ -167,13 +167,13 @@ exports.PostEditBlog = async (req,res)=>{
                     })
                 req.flash('message',"Successfully Post Updated");
                 req.flash('color','success');  
-                // return res.redirect(`/updateBlog/${postId}`)
                 return res.redirect(`/singleBlog/${postId}`)
             }else{
-                res.render('error404.ejs')
+                req.flash('message',"Something went wrong");
+                req.flash('color','danger');  
+                return res.redirect(`/updateBlog/${postId}`)
             }
         }else{
-            res.render('error404.ejs')
             req.flash('message',"Something went wrong");
             req.flash('color','danger');  
             return res.redirect(`/updateBlog/${postId}`)
