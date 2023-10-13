@@ -220,13 +220,12 @@ exports.RenderSingleBlog = async (req,res)=>{
     const token = req.cookies.token
 
     if(!token){
-        return res.send('You must be logged in')
+        req.flash('message','You must be logged in');
+        req.flash('color','danger');
+        return res.redirect('')
     }
     const VerifyUserIdToken  = await promisify(jwt.verify)(token,process.env.SECRETKEY);
-
     const UserId = VerifyUserIdToken.id;
-
-
 
     // params baat ko value valid integer xha ki xhain check garn
     if (/^\d+$/.test(postId)){
@@ -239,8 +238,6 @@ exports.RenderSingleBlog = async (req,res)=>{
         })
 
         const postUserId = chekUserData[0].userId
-
-        
 
         // if user le url ma database ma na vako post id haayo bhane error 404 dekhaune
         if(chekUserData != ''){
@@ -303,7 +300,7 @@ exports.RenderBlogDelete =  async (req,res)=>{
     }else{
         req.flash('message','Something Went Wrong');
         req.flash('color','danger');
-        res.redirect('/home')
+        res.redirect(`/singleBlog/${postNum}`)
     }
 }
 
