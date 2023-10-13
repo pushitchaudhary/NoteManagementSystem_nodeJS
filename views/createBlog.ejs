@@ -6,8 +6,26 @@
     <title>Create Blog Post</title>
     <link rel="stylesheet" href="/css/createBlog.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+</style>
 </head>
 <body>
+    <% if (message != '' && message) { %>
+        <div class="alert alert-<%- color %> alert-dismissible fade show" role="alert">
+            <strong><%- message %></strong>
+            <button type="button" onclick="close" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
 
     <header>
         <h1>Create a Post</h1>
@@ -43,5 +61,9 @@
             </div>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

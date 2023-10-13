@@ -39,10 +39,9 @@ exports.RenderCreateBlog = async (req,res)=>{
 exports.PostCreateBlog = async (req,res)=>{
 
     if(!req.file){
-        req.flash('message',"Something went wrong");  // --->> from here
+        req.flash('message',"Image required");  
         req.flash('color','danger');
         return res.redirect('/createBlog')
-        // return res.send('Image required')
         
     }
 
