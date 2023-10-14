@@ -245,7 +245,9 @@ exports.logout = (req,res)=>{
 
 // render forget password
 exports.ForgetPassword = (req,res)=>{
-    res.render('forgetPassword')
+    const message = req.flash('message');
+    const color = req.flash('color')
+    res.render('forgetPassword',{message,color})
 }
 
 exports.PostForgetPassword = async (req,res)=>{
@@ -260,7 +262,9 @@ exports.PostForgetPassword = async (req,res)=>{
     if(userDb.length == 1){
         res.render('identify_account',{userDb:userDb})
     }else{
-        return res.send ('user not found')
+        req.flash('message','User Not Found')
+        req.flash('color','danger')
+        return res.redirect('/forgetPassword')
     }
 }
 
