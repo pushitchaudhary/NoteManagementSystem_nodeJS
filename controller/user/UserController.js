@@ -124,7 +124,7 @@ exports.PostAccountDelete  = async (req,res)=>{
     const password = req.body.password;
 
     // url ma valid interger value aako xha ki xhain garn
-    if (/^\d+$/.test(id)) {
+    if (/^\d+$/.test(id)=='ew') {
         const userConfirm = await user.findAll({
             where:{
                 id:id
@@ -160,7 +160,9 @@ exports.PostAccountDelete  = async (req,res)=>{
             res.render('error404.ejs')
         }
     }else{
-        res.render('error404.ejs')
+        req.flash('message','Something went wrong');
+        req.flash('color','danger');
+        res.redirect(`/deleteAccount/${id}`)
     }   
 }
 

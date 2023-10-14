@@ -187,6 +187,9 @@ exports.PostEditBlog = async (req,res)=>{
 
 // deleteAccount page ma jana ko lagi
 exports.RenderDeleteBlog =  async (req,res)=>{
+    const message = req.flash('message');
+    const color = req.flash('color');
+
     const id = req.params.id;
     // params baat ko value valid integer xha ki xhain check garn
     if (/^\d+$/.test(id)) {
@@ -198,7 +201,7 @@ exports.RenderDeleteBlog =  async (req,res)=>{
         })
 
         if(userId.length == 1){
-            res.render('deleteAccount',{userId})
+            res.render('deleteAccount',{userId, message, color})
         }else{
             res.render('error404.ejs')
             // req.flash('message','Something went wrong');
