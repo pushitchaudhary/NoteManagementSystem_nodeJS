@@ -347,7 +347,7 @@ exports.RenderOtpCode = (req,res)=>{
     console.log(message, color)
 
     const Useremail = req.params.email;
-    res.render('otpCode',{Useremail})
+    res.render('otpCode',{Useremail,message,color})
 }
 
 exports.PostRenderOtpCode =async (req,res)=>{
