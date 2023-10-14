@@ -154,10 +154,11 @@ exports.PostAccountDelete  = async (req,res)=>{
                 res.redirect('/accountDeletedAlert')
 
             }else{
-                res.render('error404.ejs')
+                req.flash('message','Something went wrong');
+                req.flash('color','danger');
+                res.redirect(`/deleteAccount/${id}`)
             }
         }else{
-            // res.render('error404.ejs')
             req.flash('message','Something went wrong');
             req.flash('color','danger');
             res.redirect(`/deleteAccount/${id}`)
