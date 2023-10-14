@@ -151,7 +151,10 @@ exports.PostAccountDelete  = async (req,res)=>{
                     }
                 })
                 // res.redirect('/login')
-                res.redirect('/accountDeletedAlert')
+                req.flash('message','Account Deleted');
+                req.flash('color','success');
+                res.redirect(`/login`)
+                // res.redirect('/accountDeletedAlert')
 
             }else{
                 req.flash('message','Something went wrong');
