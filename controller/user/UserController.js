@@ -371,9 +371,12 @@ exports.PostRenderOtpCode =async (req,res)=>{
                     expiresIn:'1800s' // ------>  30 min 
                 })
                 res.cookie('OtpToken',OtpToken);
-            res.redirect('/newPassword')
+                res.redirect('/newPassword')
         }else{
-            console.log('otp expired')
+            req.flash('message','Otp expired');
+            req.flash('color','danger');
+            res.redirect(`/otpCode/${Useremail}`)
+
         }
     }else{
         // res.send("Invalid Otp")
