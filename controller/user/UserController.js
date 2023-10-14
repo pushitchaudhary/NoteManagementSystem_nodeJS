@@ -150,11 +150,9 @@ exports.PostAccountDelete  = async (req,res)=>{
                         id:id
                     }
                 })
-                // res.redirect('/login')
                 req.flash('message','Account Deleted');
                 req.flash('color','success');
                 res.redirect(`/login`)
-                // res.redirect('/accountDeletedAlert')
 
             }else{
                 req.flash('message','Something went wrong');
@@ -373,7 +371,10 @@ exports.PostRenderOtpCode =async (req,res)=>{
             console.log('otp expired')
         }
     }else{
-        res.send("Invalid Otp")
+        // res.send("Invalid Otp")
+        req.flash('message','Invalid Password');
+        req.flash('color','danger');
+        res.redirect(`/otpCode/${Useremail}`)
     }
 }
 
