@@ -341,6 +341,11 @@ exports.PostIdentify_account = async (req,res)=>{
 
 // otp
 exports.RenderOtpCode = (req,res)=>{
+    const message = req.flash('message');
+    const color = req.flash('color');
+
+    console.log(message, color)
+
     const Useremail = req.params.email;
     res.render('otpCode',{Useremail})
 }
