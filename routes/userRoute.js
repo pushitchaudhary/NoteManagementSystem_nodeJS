@@ -2,6 +2,7 @@ const { RenderDeleteBlog } = require('../controller/blog/blogController');
 const { NotExist } = require('../controller/extra/extra');
 const { RenderLoginPage1, RenderLoginPage2, RenderPasswordWrong, RenderAccountDelete, RenderRegisterPage, RenderEditProfile, PostUserRegisters, PostLogin, PostAccountDelete, PostUpdateProfile, logout, ForgetPassword, ResetYourPassword, identify_account, PostForgetPassword, PostIdentify_account, PostResetYourPassword, RenderOtpCode, PostRenderOtpCode, RenderNewPassword, PostNewPassword } = require('../controller/user/UserController');
 const { isLoggedIn } = require('../middleware/isLoggedIn');
+const catchError = require('../services/catchError');
 
 const router = require('express').Router();
 
@@ -19,7 +20,7 @@ router.route('/newPassword').get(RenderNewPassword).post(PostNewPassword)
 
 router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
 // router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
-router.route('/login').get(RenderLoginPage2).post(PostLogin)   // login page ma jaan ko lagi method 2 
+router.route('/login').get(RenderLoginPage2).post(catchError(PostLogin))   // login page ma jaan ko lagi method 2 
 router.route('/editProfile/:userId').get(isLoggedIn, RenderEditProfile)     // Edit profile page kholna ko lagi
 router.route('/updateProfile/:id').post(isLoggedIn, PostUpdateProfile)      // Profile Upadte garn ko lagi
 

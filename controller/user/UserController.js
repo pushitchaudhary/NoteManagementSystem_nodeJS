@@ -79,7 +79,6 @@ exports.PostUserRegisters = async (req,res)=>{
 
 // Login garn ko lagi
 exports.PostLogin = async (req,res)=>{
-  try {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -102,7 +101,7 @@ exports.PostLogin = async (req,res)=>{
             const token =  jwt.sign({id:checkUserEmailInDB[0].id},process.env.SECRETKEY,{
                 expiresIn:'30d'
             })
-            res.cookie('token',token);
+            res.cookies('token',token);
 
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
             res.redirect('/home')
@@ -116,11 +115,6 @@ exports.PostLogin = async (req,res)=>{
         req.flash('color','danger');
         res.redirect('/login')
     }
-  } catch (error) {
-    req.flash('message','Something went wrong')
-    req.flash('color','danger');
-    res.redirect('/login')
-  }
 }
 
 // Account Delete garn ko lagi
