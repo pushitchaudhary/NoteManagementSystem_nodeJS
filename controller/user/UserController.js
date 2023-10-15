@@ -79,6 +79,7 @@ exports.PostUserRegisters = async (req,res)=>{
 
 // Login garn ko lagi
 exports.PostLogin = async (req,res)=>{
+  try {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -115,6 +116,11 @@ exports.PostLogin = async (req,res)=>{
         req.flash('color','danger');
         res.redirect('/login')
     }
+  } catch (error) {
+    req.flash('message','Something went wrong')
+    req.flash('color','danger');
+    res.redirect('/login')
+  }
 }
 
 // Account Delete garn ko lagi
