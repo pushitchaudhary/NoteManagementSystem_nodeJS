@@ -14,7 +14,7 @@ router.route('/updateBlog/:id').get(catchError(isLoggedIn) ,catchError(RenderEdi
 router.route('/home').get(catchError(isLoggedIn), catchError(renderHomePage))   // home page ma jaan ko lagi
 router.route('/singleBlog/:postId').get(catchError(isLoggedIn), catchError(RenderSingleBlog))   // single blog show garna ko lagi
 router.route('/deleteBlog/:postNum').get(catchError(isLoggedIn), catchError(RenderBlogDelete)) // post delete garna ko lagi
-router.route('*').get(RenderAllLink)        // if user le wrong url haale ma
+router.route('*').get(catchError(RenderAllLink))        // if user le wrong url haale ma
 
 
 module.exports = router;
