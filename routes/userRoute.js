@@ -9,7 +9,7 @@ const router = require('express').Router();
 router.route('/logout').get(logout)
 router.route('/notexist').get(NotExist);   // if account register xhain vane
 router.route('/deleteAccount/:id').get(isLoggedIn, RenderDeleteBlog)    // deleteAccount page ma jana ko lagi
-router.route('/finalAccountDelete/:id').post(isLoggedIn, PostAccountDelete)     // Account Delete garn ko lagi
+router.route('/finalAccountDelete/:id').post(catchError(isLoggedIn), catchError(PostAccountDelete))     // Account Delete garn ko lagi
 router.route('accountDeletedAlert').get(catchError(isLoggedIn),catchError(RenderAccountDelete))    // account delete alert
 
 router.route('/forgetPassword').get(catchError(ForgetPassword)).post(catchError(PostForgetPassword))
