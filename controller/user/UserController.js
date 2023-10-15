@@ -101,7 +101,7 @@ exports.PostLogin = async (req,res)=>{
             const token =  jwt.sign({id:checkUserEmailInDB[0].id},process.env.SECRETKEY,{
                 expiresIn:'30d'
             })
-            res.cookies('token',token);
+            res.cookie('token',token);
 
             // if user email and password valid vayema tyo user ko id number Blog(/) page ma pathau ne
             res.redirect('/home')
