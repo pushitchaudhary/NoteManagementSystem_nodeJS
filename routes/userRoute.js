@@ -18,9 +18,9 @@ router.route('/identify_account/:id').get(identify_account).post(PostIdentify_ac
 router.route('/otpCode/:email').get(RenderOtpCode).post(PostRenderOtpCode)
 router.route('/newPassword').get(RenderNewPassword).post(PostNewPassword)
 
-router.route('/register').get(RenderRegisterPage).post(PostUserRegisters)   // Register page ma jaan / Register garn
+router.route('/register').get(catchError(RenderRegisterPage)).post(catchError(PostUserRegisters))   // Register page ma jaan / Register garn
 // router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
-router.route('/login').get(RenderLoginPage2).post(catchError(PostLogin))   // login page ma jaan ko lagi method 2 
+router.route('/login').get(catchError(RenderLoginPage2)).post(catchError(PostLogin))   // login page ma jaan ko lagi method 2 
 router.route('/editProfile/:userId').get(isLoggedIn, RenderEditProfile)     // Edit profile page kholna ko lagi
 router.route('/updateProfile/:id').post(isLoggedIn, PostUpdateProfile)      // Profile Upadte garn ko lagi
 
