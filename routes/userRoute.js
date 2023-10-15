@@ -16,7 +16,7 @@ router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
 router.route('/resetYourPassword/:id').get(ResetYourPassword).post(PostResetYourPassword)
 router.route('/identify_account/:id').get(identify_account).post(PostIdentify_account) 
 router.route('/otpCode/:email').get(RenderOtpCode).post(PostRenderOtpCode)
-router.route('/newPassword').get(RenderNewPassword).post(PostNewPassword)
+router.route('/newPassword').get(catchError(RenderNewPassword)).post(catchError(PostNewPassword))
 
 router.route('/register').get(catchError(RenderRegisterPage)).post(catchError(PostUserRegisters))   // Register page ma jaan / Register garn
 // router.route('/').get(RenderLoginPage1);    // login page ma jaan ko lagi method 1
