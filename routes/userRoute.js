@@ -10,10 +10,10 @@ router.route('/logout').get(logout)
 router.route('/notexist').get(NotExist);   // if account register xhain vane
 router.route('/deleteAccount/:id').get(isLoggedIn, RenderDeleteBlog)    // deleteAccount page ma jana ko lagi
 router.route('/finalAccountDelete/:id').post(isLoggedIn, PostAccountDelete)     // Account Delete garn ko lagi
-router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // account delete alert
+router.route('accountDeletedAlert').get(catchError(isLoggedIn),catchError(RenderAccountDelete))    // account delete alert
 
 router.route('/forgetPassword').get(catchError(ForgetPassword)).post(catchError(PostForgetPassword))
-router.route('/resetYourPassword/:id').get(catchError(ResetYourPassword)).post(catchError(PostResetYourPasswor))
+router.route('/resetYourPassword/:id').get(catchError(ResetYourPassword)).post(catchError(PostResetYourPassword))
 router.route('/identify_account/:id').get(catchError(identify_account)).post(catchError(PostIdentify_account)) 
 router.route('/otpCode/:email').get(catchError(RenderOtpCode)).post(catchError(PostRenderOtpCode))
 router.route('/newPassword').get(catchError(RenderNewPassword)).post(catchError(PostNewPassword))
