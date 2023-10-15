@@ -13,7 +13,7 @@ router.route('/createBlog').get(catchError(isLoggedIn), catchError(RenderCreateB
 router.route('/updateBlog/:id').get(catchError(isLoggedIn) ,catchError(RenderEditBlog)).post(catchError(isLoggedIn), upload.single('image'), catchError(PostEditBlog))
 router.route('/home').get(catchError(isLoggedIn), catchError(renderHomePage))   // home page ma jaan ko lagi
 router.route('/singleBlog/:postId').get(catchError(isLoggedIn), catchError(RenderSingleBlog))   // single blog show garna ko lagi
-router.route('/deleteBlog/:postNum').get(isLoggedIn ,RenderBlogDelete) // post delete garna ko lagi
+router.route('/deleteBlog/:postNum').get(catchError(isLoggedIn), catchError(RenderBlogDelete)) // post delete garna ko lagi
 router.route('*').get(RenderAllLink)        // if user le wrong url haale ma
 
 
