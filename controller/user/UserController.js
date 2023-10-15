@@ -422,7 +422,7 @@ exports.PostNewPassword = async (req,res)=>{
             res.send("Server Error")
         }
     }else{
-        res.send("password and confirm password don't match")
+        res.send("Password and confirm password don't match")
     }
 
 }
