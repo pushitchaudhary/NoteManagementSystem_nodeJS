@@ -12,7 +12,7 @@ router.route('/deleteAccount/:id').get(isLoggedIn, RenderDeleteBlog)    // delet
 router.route('/finalAccountDelete/:id').post(isLoggedIn, PostAccountDelete)     // Account Delete garn ko lagi
 router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // account delete alert
 
-router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
+router.route('/forgetPassword').get(catchError(ForgetPassword)).post(catchError(PostForgetPassword))
 router.route('/resetYourPassword/:id').get(catchError(ResetYourPassword)).post(catchError(PostResetYourPasswor))
 router.route('/identify_account/:id').get(catchError(identify_account)).post(catchError(PostIdentify_account)) 
 router.route('/otpCode/:email').get(catchError(RenderOtpCode)).post(catchError(PostRenderOtpCode))
