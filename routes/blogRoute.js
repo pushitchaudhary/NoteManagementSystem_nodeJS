@@ -9,7 +9,7 @@ const { multer, storage } = require("../middleware/multerConfig");
 const catchError = require('../services/catchError');
 const upload = multer({ storage: storage });
 
-router.route('/createBlog').get(isLoggedIn,RenderCreateBlog).post(catchError(isLoggedIn),upload.single('image'), catchError(PostCreateBlog));
+router.route('/createBlog').get(catchError(isLoggedIn), catchError(RenderCreateBlog)).post(catchError(isLoggedIn),upload.single('image'), catchError(PostCreateBlog));
 router.route('/updateBlog/:id').get(isLoggedIn ,RenderEditBlog).post(isLoggedIn, upload.single('image'), PostEditBlog)
 router.route('/home').get(isLoggedIn, renderHomePage)   // home page ma jaan ko lagi
 router.route('/singleBlog/:postId').get(isLoggedIn, RenderSingleBlog)   // single blog show garna ko lagi
