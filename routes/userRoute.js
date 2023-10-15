@@ -14,7 +14,7 @@ router.route('accountDeletedAlert').get(isLoggedIn, RenderAccountDelete)    // a
 
 router.route('/forgetPassword').get(ForgetPassword).post(PostForgetPassword)
 router.route('/resetYourPassword/:id').get(ResetYourPassword).post(PostResetYourPassword)
-router.route('/identify_account/:id').get(identify_account).post(PostIdentify_account) 
+router.route('/identify_account/:id').get(catchError(identify_account)).post(catchError(PostIdentify_account)) 
 router.route('/otpCode/:email').get(catchError(RenderOtpCode)).post(catchError(PostRenderOtpCode))
 router.route('/newPassword').get(catchError(RenderNewPassword)).post(catchError(PostNewPassword))
 
